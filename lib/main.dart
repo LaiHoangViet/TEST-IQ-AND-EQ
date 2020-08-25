@@ -1,6 +1,6 @@
 import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
-import 'SlpatHome.dart';
+import 'Splash.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColorDark: Colors.green,
       ),
-      home: SlpatHome(),
+      home: Splashscreen(),
     );
   }
 }
