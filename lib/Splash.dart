@@ -28,6 +28,7 @@ class _SplashscreenState extends State<Splashscreen>{
         child:Text(
           "Quiz Test",
           style: TextStyle(
+            inherit: false,
             fontSize: 50.0,
             color: Colors.white,
           ),
