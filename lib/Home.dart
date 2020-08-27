@@ -54,7 +54,11 @@ class Home extends StatelessWidget {
                     height: SizeConfig.blockSizeVertical*40,
                     width: SizeConfig.blockSizeHorizontal*60,
                     decoration: BoxDecoration(
-                      color: Colors.lightBlueAccent,
+                      gradient: LinearGradient(
+                          begin: Alignment.topRight,
+                          end: Alignment.bottomLeft,
+                          colors: [Colors.amberAccent, Colors.deepPurpleAccent],
+                      ),
                       borderRadius: BorderRadius.only(
                         topRight: Radius.circular(20.0), // border = widget Container
                         bottomLeft: Radius.circular(250.0), //boder corner
@@ -69,7 +73,11 @@ class Home extends StatelessWidget {
                     height: SizeConfig.blockSizeVertical*40,
                     width: SizeConfig.blockSizeHorizontal*60,
                     decoration: BoxDecoration(
-                      color: Colors.cyan,
+                      gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [Colors.cyanAccent, Colors.pinkAccent],
+                      ),
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(20.0), // border = widget Container
                         bottomRight: Radius.circular(200), //boder corner
