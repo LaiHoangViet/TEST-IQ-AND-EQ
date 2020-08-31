@@ -2,47 +2,105 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+import 'Test.dart';
+
 class Listopic extends StatelessWidget {
-  List<Widget> containers = [
-    /*IQ*/
-    Container(
-      margin: const EdgeInsets.all(10),
-      child: Column(
+  List<Widget> containers(BuildContext context) {
+    return [
+      /*IQ*/
+      ListView(
         children: <Widget>[
-          Card(
+          Container(
+            margin: const EdgeInsets.all(10),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                /*Ảnh và tên bài test*/
-                Container(
-                  padding: const EdgeInsets.all(10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                Card(
+                  elevation: 5,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
-                      ClipOval(
-                        child: Image.asset(
-                          'images/anh1.jpg',
-                          width: 100,
-                          height: 100,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
+                      /*Ảnh và tên bài test*/
                       Container(
-                        child: Column(
+                        padding: const EdgeInsets.all(10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: <Widget>[
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 15),
-                              child: Text(
-                                'Lại Hoàng Việt',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                            ClipOval(
+                              child: Image.asset(
+                                'images/anh1.jpg',
+                                width: 100,
+                                height: 100,
+                                fit: BoxFit.cover,
                               ),
                             ),
-                            Text(
-                              '100 - ***',
-                              style: TextStyle(fontSize: 16),
+                            Container(
+                              child: Column(
+                                children: <Widget>[
+                                  Padding(
+                                    padding: const EdgeInsets.only(bottom: 15),
+                                    child: Text(
+                                      'Lại Hoàng Việt',
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                  Text(
+                                    '100 - ***',
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      /*Thông tin bài test*/
+                      Container(
+                        margin: EdgeInsets.only(
+                            top: 20, bottom: 20, left: 20, right: 20),
+                        padding: EdgeInsets.all(5),
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            width: 1,
+                          ),
+                          borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                        ),
+                        child: Text(
+                          'Thông tin bài test. '
+                          'Chúc bạn làm bài đạt điểm số cao nhất',
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      /*Nút test và nút rank*/
+                      Container(
+                        padding: const EdgeInsets.only(
+                          bottom: 10,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: <Widget>[
+                            RaisedButton(
+                              onPressed: () => {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => new Test()),
+                                ),
+                              },
+                              color: Colors.blue,
+                              child: Text('Test'),
+                              textColor: Colors.white,
+                              highlightElevation: 4.0,
+                            ),
+                            RaisedButton(
+                              onPressed: () {},
+                              color: Colors.blue,
+                              child: Text('Rank'),
+                              textColor: Colors.white,
+                              highlightElevation: 4.0,
                             ),
                           ],
                         ),
@@ -50,85 +108,87 @@ class Listopic extends StatelessWidget {
                     ],
                   ),
                 ),
-                /*Thông tin bài test*/
-                Container(
-                  margin:
-                      EdgeInsets.only(top: 20, bottom: 20, left: 20, right: 20),
-                  padding: EdgeInsets.all(5),
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      width: 1,
-                    ),
-                    borderRadius: BorderRadius.all(Radius.circular(4.0)),
-                  ),
-                  child: Text(
-                    'Thông tin bài test. '
-                    'Chúc bạn làm bài đạt điểm số cao nhất',
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                /*Nút test và nút rank*/
-                Container(
-                  padding: const EdgeInsets.only(
-                    bottom: 10,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                Card(
+                  elevation: 5,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
-                      RaisedButton(
-                        onPressed: () {},
-                        color: Colors.blue,
-                        child: Text('Test'),
-                        textColor: Colors.white,
-                        highlightElevation: 4.0,
-                      ),
-                      RaisedButton(
-                        onPressed: () {},
-                        color: Colors.blue,
-                        child: Text('Rank'),
-                        textColor: Colors.white,
-                        highlightElevation: 4.0,
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Card(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                /*Ảnh và tên bài test*/
-                Container(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      ClipOval(
-                        child: Image.asset(
-                          'images/anh1.jpg',
-                          width: 100,
-                          height: 100,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
+                      /*Ảnh và tên bài test*/
                       Container(
-                        child: Column(
+                        padding: const EdgeInsets.all(10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: <Widget>[
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 15),
-                              child: Text(
-                                'Lại Hoàng Việt',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                            ClipOval(
+                              child: Image.asset(
+                                'images/anh1.jpg',
+                                width: 100,
+                                height: 100,
+                                fit: BoxFit.cover,
                               ),
                             ),
-                            Text(
-                              '100 - ***',
-                              style: TextStyle(fontSize: 16),
+                            Container(
+                              child: Column(
+                                children: <Widget>[
+                                  Padding(
+                                    padding: const EdgeInsets.only(bottom: 15),
+                                    child: Text(
+                                      'Lại Hoàng Việt',
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                  Text(
+                                    '100 - ***',
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      /*Thông tin bài test*/
+                      Container(
+                        margin: EdgeInsets.only(
+                            top: 20, bottom: 20, left: 20, right: 20),
+                        padding: EdgeInsets.all(5),
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            width: 1,
+                          ),
+                          borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                        ),
+                        child: Text(
+                          'Thông tin bài test. '
+                          'Chúc bạn làm bài đạt điểm số cao nhất',
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      /*Nút test và nút rank*/
+                      Container(
+                        padding: const EdgeInsets.only(
+                          bottom: 10,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: <Widget>[
+                            RaisedButton(
+                              onPressed: () {},
+                              color: Colors.blue,
+                              child: Text('Test'),
+                              textColor: Colors.white,
+                              highlightElevation: 4.0,
+                            ),
+                            RaisedButton(
+                              onPressed: () {},
+                              color: Colors.blue,
+                              child: Text('Rank'),
+                              textColor: Colors.white,
+                              highlightElevation: 4.0,
                             ),
                           ],
                         ),
@@ -136,45 +196,178 @@ class Listopic extends StatelessWidget {
                     ],
                   ),
                 ),
-                /*Thông tin bài test*/
-                Container(
-                  margin:
-                  EdgeInsets.only(top: 20, bottom: 20, left: 20, right: 20),
-                  padding: EdgeInsets.all(5),
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      width: 1,
-                    ),
-                    borderRadius: BorderRadius.all(Radius.circular(4.0)),
-                  ),
-                  child: Text(
-                    'Thông tin bài test. '
-                        'Chúc bạn làm bài đạt điểm số cao nhất',
-                    textAlign: TextAlign.center,
+                Card(
+                  elevation: 5,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      /*Ảnh và tên bài test*/
+                      Container(
+                        padding: const EdgeInsets.all(10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: <Widget>[
+                            ClipOval(
+                              child: Image.asset(
+                                'images/anh1.jpg',
+                                width: 100,
+                                height: 100,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            Container(
+                              child: Column(
+                                children: <Widget>[
+                                  Padding(
+                                    padding: const EdgeInsets.only(bottom: 15),
+                                    child: Text(
+                                      'Lại Hoàng Việt',
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                  Text(
+                                    '100 - ***',
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      /*Thông tin bài test*/
+                      Container(
+                        margin: EdgeInsets.only(
+                            top: 20, bottom: 20, left: 20, right: 20),
+                        padding: EdgeInsets.all(5),
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            width: 1,
+                          ),
+                          borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                        ),
+                        child: Text(
+                          'Thông tin bài test. '
+                          'Chúc bạn làm bài đạt điểm số cao nhất',
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      /*Nút test và nút rank*/
+                      Container(
+                        padding: const EdgeInsets.only(
+                          bottom: 10,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: <Widget>[
+                            RaisedButton(
+                              onPressed: () {},
+                              color: Colors.blue,
+                              child: Text('Test'),
+                              textColor: Colors.white,
+                              highlightElevation: 4.0,
+                            ),
+                            RaisedButton(
+                              onPressed: () {},
+                              color: Colors.blue,
+                              child: Text('Rank'),
+                              textColor: Colors.white,
+                              highlightElevation: 4.0,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                /*Nút test và nút rank*/
-                Container(
-                  padding: const EdgeInsets.only(
-                    bottom: 10,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                Card(
+                  elevation: 5,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
-                      RaisedButton(
-                        onPressed: () {},
-                        color: Colors.blue,
-                        child: Text('Test'),
-                        textColor: Colors.white,
-                        highlightElevation: 4.0,
+                      /*Ảnh và tên bài test*/
+                      Container(
+                        padding: const EdgeInsets.all(10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: <Widget>[
+                            ClipOval(
+                              child: Image.asset(
+                                'images/anh1.jpg',
+                                width: 100,
+                                height: 100,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            Container(
+                              child: Column(
+                                children: <Widget>[
+                                  Padding(
+                                    padding: const EdgeInsets.only(bottom: 15),
+                                    child: Text(
+                                      'Lại Hoàng Việt',
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                  Text(
+                                    '100 - ***',
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                      RaisedButton(
-                        onPressed: () {},
-                        color: Colors.blue,
-                        child: Text('Rank'),
-                        textColor: Colors.white,
-                        highlightElevation: 4.0,
+                      /*Thông tin bài test*/
+                      Container(
+                        margin: EdgeInsets.only(
+                            top: 20, bottom: 20, left: 20, right: 20),
+                        padding: EdgeInsets.all(5),
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            width: 1,
+                          ),
+                          borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                        ),
+                        child: Text(
+                          'Thông tin bài test. '
+                          'Chúc bạn làm bài đạt điểm số cao nhất',
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      /*Nút test và nút rank*/
+                      Container(
+                        padding: const EdgeInsets.only(
+                          bottom: 10,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: <Widget>[
+                            RaisedButton(
+                              onPressed: () {},
+                              color: Colors.blue,
+                              child: Text('Test'),
+                              textColor: Colors.white,
+                              highlightElevation: 4.0,
+                            ),
+                            RaisedButton(
+                              onPressed: () {},
+                              color: Colors.blue,
+                              child: Text('Rank'),
+                              textColor: Colors.white,
+                              highlightElevation: 4.0,
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
@@ -184,14 +377,200 @@ class Listopic extends StatelessWidget {
           ),
         ],
       ),
-    ),
-    Container(
-      child: Text('hoang'),
-    ),
-    Container(
-      child: Text('ngoc'),
-    ),
-  ];
+      Container(
+        margin: const EdgeInsets.all(10),
+        child: Column(
+          children: <Widget>[
+            Card(
+              elevation: 5,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  /*Ảnh và tên bài test*/
+                  Container(
+                    padding: const EdgeInsets.all(10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        ClipOval(
+                          child: Image.asset(
+                            'images/anh1.jpg',
+                            width: 100,
+                            height: 100,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        Container(
+                          child: Column(
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 15),
+                                child: Text(
+                                  'Lại Hoàng Việt',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                              Text(
+                                '100 - ***',
+                                style: TextStyle(fontSize: 16),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  /*Thông tin bài test*/
+                  Container(
+                    margin: EdgeInsets.only(
+                        top: 20, bottom: 20, left: 20, right: 20),
+                    padding: EdgeInsets.all(5),
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        width: 1,
+                      ),
+                      borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                    ),
+                    child: Text(
+                      'Thông tin bài test. '
+                      'Chúc bạn làm bài đạt điểm số cao nhất',
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  /*Nút test và nút rank*/
+                  Container(
+                    padding: const EdgeInsets.only(
+                      bottom: 10,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        RaisedButton(
+                          onPressed: () => {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => new Test()),
+                            ),
+                          },
+                          color: Colors.blue,
+                          child: Text('Test'),
+                          textColor: Colors.white,
+                          highlightElevation: 4.0,
+                        ),
+                        RaisedButton(
+                          onPressed: () {},
+                          color: Colors.blue,
+                          child: Text('Rank'),
+                          textColor: Colors.white,
+                          highlightElevation: 4.0,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Card(
+              elevation: 5,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  /*Ảnh và tên bài test*/
+                  Container(
+                    padding: const EdgeInsets.all(10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        ClipOval(
+                          child: Image.asset(
+                            'images/anh1.jpg',
+                            width: 100,
+                            height: 100,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        Container(
+                          child: Column(
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 15),
+                                child: Text(
+                                  'Lại Hoàng Việt',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                              Text(
+                                '100 - ***',
+                                style: TextStyle(fontSize: 16),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  /*Thông tin bài test*/
+                  Container(
+                    margin: EdgeInsets.only(
+                        top: 20, bottom: 20, left: 20, right: 20),
+                    padding: EdgeInsets.all(5),
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        width: 1,
+                      ),
+                      borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                    ),
+                    child: Text(
+                      'Thông tin bài test. '
+                      'Chúc bạn làm bài đạt điểm số cao nhất',
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  /*Nút test và nút rank*/
+                  Container(
+                    padding: const EdgeInsets.only(
+                      bottom: 10,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        RaisedButton(
+                          onPressed: () {},
+                          color: Colors.blue,
+                          child: Text('Test'),
+                          textColor: Colors.white,
+                          highlightElevation: 4.0,
+                        ),
+                        RaisedButton(
+                          onPressed: () {},
+                          color: Colors.blue,
+                          child: Text('Rank'),
+                          textColor: Colors.white,
+                          highlightElevation: 4.0,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+      Container(
+        child: Text('ngoc'),
+      ),
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -201,7 +580,12 @@ class Listopic extends StatelessWidget {
         length: 3,
         child: Scaffold(
           appBar: AppBar(
+            leading: new IconButton(
+              icon: new Icon(Icons.arrow_back, color: Colors.white),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
             title: Text('Home'),
+            centerTitle: true,
             bottom: TabBar(
               tabs: [
                 Tab(
@@ -241,7 +625,7 @@ class Listopic extends StatelessWidget {
             ),
           ),
           body: TabBarView(
-            children: containers,
+            children: containers(context),
           ),
         ),
       ),

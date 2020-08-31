@@ -10,7 +10,7 @@ class Ranks extends StatelessWidget {
       child: Column(
         children: [
           Card(
-            margin: EdgeInsets.only(top:10),
+            margin: EdgeInsets.only(top: 10),
             child: Container(
               color: Colors.lightBlueAccent,
               height: 80,
@@ -23,11 +23,14 @@ class Ranks extends StatelessWidget {
                       fontSize: 14,
                     ),
                   ),
-                  Text("Trần Mạnh Hoàng",
+                  Text(
+                    "Trần Mạnh Hoàng",
                     style: TextStyle(
                       fontSize: 18,
-                    ),),
-                  Text("150",
+                    ),
+                  ),
+                  Text(
+                    "150",
                     style: TextStyle(
                       fontSize: 14,
                     ),
@@ -37,7 +40,7 @@ class Ranks extends StatelessWidget {
             ),
           ),
           Card(
-            margin: EdgeInsets.only(top:10),
+            margin: EdgeInsets.only(top: 10),
             child: Container(
               height: 80,
               child: Row(
@@ -49,20 +52,24 @@ class Ranks extends StatelessWidget {
                       fontSize: 14,
                     ),
                   ),
-                  Text("Trần Mạnh Hoàng",
+                  Text(
+                    "Trần Mạnh Hoàng",
                     style: TextStyle(
                       fontSize: 18,
-                    ),),
-                  Text("150",
+                    ),
+                  ),
+                  Text(
+                    "150",
                     style: TextStyle(
                       fontSize: 14,
-                    ),),
+                    ),
+                  ),
                 ],
               ),
             ),
           ),
           Card(
-            margin: EdgeInsets.only(top:10),
+            margin: EdgeInsets.only(top: 10),
             child: Container(
               height: 80,
               child: Row(
@@ -74,14 +81,18 @@ class Ranks extends StatelessWidget {
                       fontSize: 14,
                     ),
                   ),
-                  Text("Trần Mạnh Hoàng",
+                  Text(
+                    "Trần Mạnh Hoàng",
                     style: TextStyle(
                       fontSize: 18,
-                    ),),
-                  Text("150",
+                    ),
+                  ),
+                  Text(
+                    "150",
                     style: TextStyle(
                       fontSize: 14,
-                    ),),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -94,7 +105,7 @@ class Ranks extends StatelessWidget {
       child: Column(
         children: [
           Card(
-            margin: EdgeInsets.only(top:10),
+            margin: EdgeInsets.only(top: 10),
             child: Container(
               color: Colors.lightBlueAccent,
               height: 80,
@@ -107,20 +118,24 @@ class Ranks extends StatelessWidget {
                       fontSize: 14,
                     ),
                   ),
-                  Text("Trần Mạnh Hoàng",
+                  Text(
+                    "Trần Mạnh Hoàng",
                     style: TextStyle(
                       fontSize: 18,
-                    ),),
-                  Text("150",
+                    ),
+                  ),
+                  Text(
+                    "150",
                     style: TextStyle(
                       fontSize: 14,
-                    ),),
+                    ),
+                  ),
                 ],
               ),
             ),
           ),
           Card(
-            margin: EdgeInsets.only(top:10),
+            margin: EdgeInsets.only(top: 10),
             child: Container(
               height: 80,
               child: Row(
@@ -132,20 +147,24 @@ class Ranks extends StatelessWidget {
                       fontSize: 14,
                     ),
                   ),
-                  Text("Trần Mạnh Hoàng",
+                  Text(
+                    "Trần Mạnh Hoàng",
                     style: TextStyle(
                       fontSize: 18,
-                    ),),
-                  Text("150",
+                    ),
+                  ),
+                  Text(
+                    "150",
                     style: TextStyle(
                       fontSize: 14,
-                    ),),
+                    ),
+                  ),
                 ],
               ),
             ),
           ),
           Card(
-            margin: EdgeInsets.only(top:10),
+            margin: EdgeInsets.only(top: 10),
             child: Container(
               height: 80,
               child: Row(
@@ -157,14 +176,18 @@ class Ranks extends StatelessWidget {
                       fontSize: 14,
                     ),
                   ),
-                  Text("Trần Mạnh Hoàng",
+                  Text(
+                    "Trần Mạnh Hoàng",
                     style: TextStyle(
                       fontSize: 18,
-                    ),),
-                  Text("150",
+                    ),
+                  ),
+                  Text(
+                    "150",
                     style: TextStyle(
                       fontSize: 14,
-                    ),),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -177,7 +200,7 @@ class Ranks extends StatelessWidget {
       child: Column(
         children: [
           Card(
-            margin: EdgeInsets.only(top:10),
+            margin: EdgeInsets.only(top: 10),
             child: Container(
               color: Colors.lightBlueAccent,
               height: 80,
@@ -190,20 +213,24 @@ class Ranks extends StatelessWidget {
                       fontSize: 14,
                     ),
                   ),
-                  Text("Trần Mạnh Hoàng",
+                  Text(
+                    "Trần Mạnh Hoàng",
                     style: TextStyle(
                       fontSize: 18,
-                    ),),
-                  Text("150",
+                    ),
+                  ),
+                  Text(
+                    "150",
                     style: TextStyle(
                       fontSize: 14,
-                    ),),
+                    ),
+                  ),
                 ],
               ),
             ),
           ),
           Card(
-            margin: EdgeInsets.only(top:10),
+            margin: EdgeInsets.only(top: 10),
             child: Container(
               height: 80,
               child: Row(
@@ -215,20 +242,24 @@ class Ranks extends StatelessWidget {
                       fontSize: 14,
                     ),
                   ),
-                  Text("Trần Mạnh Hoàng",
+                  Text(
+                    "Trần Mạnh Hoàng",
                     style: TextStyle(
                       fontSize: 18,
-                    ),),
-                  Text("150",
+                    ),
+                  ),
+                  Text(
+                    "150",
                     style: TextStyle(
                       fontSize: 14,
-                    ),),
+                    ),
+                  ),
                 ],
               ),
             ),
           ),
           Card(
-            margin: EdgeInsets.only(top:10),
+            margin: EdgeInsets.only(top: 10),
             child: Container(
               height: 80,
               child: Row(
@@ -240,14 +271,18 @@ class Ranks extends StatelessWidget {
                       fontSize: 14,
                     ),
                   ),
-                  Text("Trần Mạnh Hoàng",
+                  Text(
+                    "Trần Mạnh Hoàng",
                     style: TextStyle(
                       fontSize: 18,
-                    ),),
-                  Text("150",
+                    ),
+                  ),
+                  Text(
+                    "150",
                     style: TextStyle(
                       fontSize: 14,
-                    ),),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -260,7 +295,7 @@ class Ranks extends StatelessWidget {
       child: Column(
         children: [
           Card(
-            margin: EdgeInsets.only(top:10),
+            margin: EdgeInsets.only(top: 10),
             child: Container(
               color: Colors.lightBlueAccent,
               height: 80,
@@ -273,20 +308,24 @@ class Ranks extends StatelessWidget {
                       fontSize: 14,
                     ),
                   ),
-                  Text("Trần Mạnh Hoàng",
+                  Text(
+                    "Trần Mạnh Hoàng",
                     style: TextStyle(
                       fontSize: 18,
-                    ),),
-                  Text("150",
+                    ),
+                  ),
+                  Text(
+                    "150",
                     style: TextStyle(
                       fontSize: 14,
-                    ),),
+                    ),
+                  ),
                 ],
               ),
             ),
           ),
           Card(
-            margin: EdgeInsets.only(top:10),
+            margin: EdgeInsets.only(top: 10),
             child: Container(
               height: 80,
               child: Row(
@@ -298,20 +337,24 @@ class Ranks extends StatelessWidget {
                       fontSize: 14,
                     ),
                   ),
-                  Text("Trần Mạnh Hoàng",
+                  Text(
+                    "Trần Mạnh Hoàng",
                     style: TextStyle(
                       fontSize: 18,
-                    ),),
-                  Text("150",
+                    ),
+                  ),
+                  Text(
+                    "150",
                     style: TextStyle(
                       fontSize: 14,
-                    ),),
+                    ),
+                  ),
                 ],
               ),
             ),
           ),
           Card(
-            margin: EdgeInsets.only(top:10),
+            margin: EdgeInsets.only(top: 10),
             child: Container(
               height: 80,
               child: Row(
@@ -323,14 +366,18 @@ class Ranks extends StatelessWidget {
                       fontSize: 14,
                     ),
                   ),
-                  Text("Trần Mạnh Hoàng",
+                  Text(
+                    "Trần Mạnh Hoàng",
                     style: TextStyle(
                       fontSize: 18,
-                    ),),
-                  Text("150",
+                    ),
+                  ),
+                  Text(
+                    "150",
                     style: TextStyle(
                       fontSize: 14,
-                    ),),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -347,6 +394,10 @@ class Ranks extends StatelessWidget {
         length: 4,
         child: Scaffold(
           appBar: AppBar(
+            leading: new IconButton(
+              icon: new Icon(Icons.home, color: Colors.white),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
             centerTitle: true,
             title: Text(
               'Ranking',
@@ -354,10 +405,6 @@ class Ranks extends StatelessWidget {
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
               ),
-            ),
-            leading: new IconButton(
-              icon: Icon(Icons.home),
-              onPressed: () => {Home()},
             ),
             bottom: TabBar(
               tabs: [
