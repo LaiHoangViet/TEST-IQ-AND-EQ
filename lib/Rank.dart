@@ -3,193 +3,98 @@ import 'package:flutter/material.dart';
 import 'SizeConfig.dart';
 
 class Ranks extends StatelessWidget {
-  int _active;
+  bool _active = false;
   List<Widget> _Rank = [
     Container(
       margin: EdgeInsets.all(10),
       child: Column(
         children: [
           Card(
-            margin: EdgeInsets.only(top: 10),
-            child: Container(
-              color: Colors.lightBlueAccent,
-              height: 80,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+            color: Colors.lightBlueAccent,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                const ListTile(
+                  leading: Text(
                     "1",
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 18,
                     ),
                   ),
-                  Text(
+                  title: Text(
                     "Trần Mạnh Hoàng",
                     style: TextStyle(
                       fontSize: 18,
                     ),
                   ),
-                  Text(
+                  trailing: Text(
                     "150",
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 18,
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
           Card(
-            margin: EdgeInsets.only(top: 10),
-            child: Container(
-              height: 80,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text(
-                    "1",
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                const ListTile(
+                  leading: Text(
+                    "2",
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 18,
                     ),
                   ),
-                  Text(
+                  title: Text(
                     "Trần Mạnh Hoàng",
                     style: TextStyle(
                       fontSize: 18,
                     ),
                   ),
-                  Text(
+                  trailing: Text(
                     "150",
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 18,
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
           Card(
-            margin: EdgeInsets.only(top: 10),
-            child: Container(
-              height: 80,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text(
-                    "1",
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                const ListTile(
+                  leading: Text(
+                    "3",
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 18,
                     ),
                   ),
-                  Text(
+                  title: Text(
                     "Trần Mạnh Hoàng",
                     style: TextStyle(
                       fontSize: 18,
                     ),
                   ),
-                  Text(
+                  trailing: Text(
                     "150",
-                    style: TextStyle(
-                      fontSize: 14,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    ),
-    Container(
-      margin: EdgeInsets.all(10),
-      child: Column(
-        children: [
-          Card(
-            margin: EdgeInsets.only(top: 10),
-            child: Container(
-              color: Colors.lightBlueAccent,
-              height: 80,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text(
-                    "1",
-                    style: TextStyle(
-                      fontSize: 14,
-                    ),
-                  ),
-                  Text(
-                    "Trần Mạnh Hoàng",
                     style: TextStyle(
                       fontSize: 18,
                     ),
                   ),
-                  Text(
-                    "150",
-                    style: TextStyle(
-                      fontSize: 14,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Card(
-            margin: EdgeInsets.only(top: 10),
-            child: Container(
-              height: 80,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text(
-                    "1",
-                    style: TextStyle(
-                      fontSize: 14,
-                    ),
-                  ),
-                  Text(
-                    "Trần Mạnh Hoàng",
-                    style: TextStyle(
-                      fontSize: 18,
-                    ),
-                  ),
-                  Text(
-                    "150",
-                    style: TextStyle(
-                      fontSize: 14,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Card(
-            margin: EdgeInsets.only(top: 10),
-            child: Container(
-              height: 80,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text(
-                    "1",
-                    style: TextStyle(
-                      fontSize: 14,
-                    ),
-                  ),
-                  Text(
-                    "Trần Mạnh Hoàng",
-                    style: TextStyle(
-                      fontSize: 18,
-                    ),
-                  ),
-                  Text(
-                    "150",
-                    style: TextStyle(
-                      fontSize: 14,
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ],
@@ -200,91 +105,91 @@ class Ranks extends StatelessWidget {
       child: Column(
         children: [
           Card(
-            margin: EdgeInsets.only(top: 10),
-            child: Container(
-              color: Colors.lightBlueAccent,
-              height: 80,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+            color: Colors.lightBlueAccent,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                const ListTile(
+                  leading: Text(
                     "1",
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 18,
                     ),
                   ),
-                  Text(
+                  title: Text(
                     "Trần Mạnh Hoàng",
                     style: TextStyle(
                       fontSize: 18,
                     ),
                   ),
-                  Text(
+                  trailing: Text(
                     "150",
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 18,
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
           Card(
-            margin: EdgeInsets.only(top: 10),
-            child: Container(
-              height: 80,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text(
-                    "1",
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                const ListTile(
+                  leading: Text(
+                    "2",
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 18,
                     ),
                   ),
-                  Text(
+                  title: Text(
                     "Trần Mạnh Hoàng",
                     style: TextStyle(
                       fontSize: 18,
                     ),
                   ),
-                  Text(
+                  trailing: Text(
                     "150",
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 18,
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
           Card(
-            margin: EdgeInsets.only(top: 10),
-            child: Container(
-              height: 80,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text(
-                    "1",
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                const ListTile(
+                  leading: Text(
+                    "3",
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 18,
                     ),
                   ),
-                  Text(
+                  title: Text(
                     "Trần Mạnh Hoàng",
                     style: TextStyle(
                       fontSize: 18,
                     ),
                   ),
-                  Text(
+                  trailing: Text(
                     "150",
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 18,
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ],
@@ -295,91 +200,186 @@ class Ranks extends StatelessWidget {
       child: Column(
         children: [
           Card(
-            margin: EdgeInsets.only(top: 10),
-            child: Container(
-              color: Colors.lightBlueAccent,
-              height: 80,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+            color: Colors.lightBlueAccent,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                const ListTile(
+                  leading: Text(
                     "1",
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 18,
                     ),
                   ),
-                  Text(
+                  title: Text(
                     "Trần Mạnh Hoàng",
                     style: TextStyle(
                       fontSize: 18,
                     ),
                   ),
-                  Text(
+                  trailing: Text(
                     "150",
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 18,
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
           Card(
-            margin: EdgeInsets.only(top: 10),
-            child: Container(
-              height: 80,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text(
-                    "1",
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                const ListTile(
+                  leading: Text(
+                    "2",
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 18,
                     ),
                   ),
-                  Text(
+                  title: Text(
                     "Trần Mạnh Hoàng",
                     style: TextStyle(
                       fontSize: 18,
                     ),
                   ),
-                  Text(
+                  trailing: Text(
                     "150",
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 18,
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
           Card(
-            margin: EdgeInsets.only(top: 10),
-            child: Container(
-              height: 80,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text(
-                    "1",
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                const ListTile(
+                  leading: Text(
+                    "3",
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 18,
                     ),
                   ),
-                  Text(
+                  title: Text(
                     "Trần Mạnh Hoàng",
                     style: TextStyle(
                       fontSize: 18,
                     ),
                   ),
-                  Text(
+                  trailing: Text(
                     "150",
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 18,
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    ),
+    Container(
+      margin: EdgeInsets.all(10),
+      child: Column(
+        children: [
+          Card(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+            color: Colors.lightBlueAccent,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                const ListTile(
+                  leading: Text(
+                    "1",
+                    style: TextStyle(
+                      fontSize: 18,
+                    ),
+                  ),
+                  title: Text(
+                    "Trần Mạnh Hoàng",
+                    style: TextStyle(
+                      fontSize: 18,
+                    ),
+                  ),
+                  trailing: Text(
+                    "150",
+                    style: TextStyle(
+                      fontSize: 18,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Card(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                const ListTile(
+                  leading: Text(
+                    "2",
+                    style: TextStyle(
+                      fontSize: 18,
+                    ),
+                  ),
+                  title: Text(
+                    "Trần Mạnh Hoàng",
+                    style: TextStyle(
+                      fontSize: 18,
+                    ),
+                  ),
+                  trailing: Text(
+                    "150",
+                    style: TextStyle(
+                      fontSize: 18,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Card(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                const ListTile(
+                  leading: Text(
+                    "3",
+                    style: TextStyle(
+                      fontSize: 18,
+                    ),
+                  ),
+                  title: Text(
+                    "Trần Mạnh Hoàng",
+                    style: TextStyle(
+                      fontSize: 18,
+                    ),
+                  ),
+                  trailing: Text(
+                    "150",
+                    style: TextStyle(
+                      fontSize: 18,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ],
@@ -394,10 +394,6 @@ class Ranks extends StatelessWidget {
         length: 4,
         child: Scaffold(
           appBar: AppBar(
-            leading: new IconButton(
-              icon: new Icon(Icons.home, color: Colors.white),
-              onPressed: () => Navigator.of(context).pop(),
-            ),
             centerTitle: true,
             title: Text(
               'Ranking',
@@ -405,6 +401,15 @@ class Ranks extends StatelessWidget {
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
               ),
+            ),
+            leading: new IconButton(
+              icon: Icon(Icons.home),
+              onPressed: () => {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Home()),
+                ),
+              },
             ),
             bottom: TabBar(
               tabs: [
@@ -435,8 +440,19 @@ class Ranks extends StatelessWidget {
               ],
             ),
           ),
-          body: TabBarView(
-            children: _Rank,
+          body: Container(
+            height: double.infinity,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [Colors.cyanAccent, Colors.red],
+              ),
+            ),
+            child: TabBarView(
+              children: _Rank,
+            ),
           ),
         ),
       ),
