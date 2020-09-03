@@ -1,6 +1,13 @@
 import 'dart:async';
+import 'dart:convert';
+import 'package:flutter/cupertino.dart';
+
 import 'Home.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
+
+
 
 class Splashscreen extends StatefulWidget{
   @override
@@ -8,12 +15,46 @@ class Splashscreen extends StatefulWidget{
 }
 
 
-
 class _SplashscreenState extends State<Splashscreen>{
-  _SplashscreenState();
+
+  var res, log;
+
+  // Khai báo đường link api
+  var api = "http://apiiq.bigorder.vn/api/v1/user/auto-login";
+
+
+    fetchData(String id, String token) async {
+      // Map data={
+      //   'id':id,
+      //   'token':token,
+      // };
+      SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+
+      // Gọi đến link API
+      res = await http.post(api);
+      // print('Tra ve ${res}' );
+      // print(res.toString());
+      if(res.statusCode==200){
+        log = jsonDecode(res.body);
+        print(log);
+        // setState(() {
+        //                                Key      value
+          sharedPreferences.setString("token", log["data"]["token"]);
+          sharedPreferences.setString("userid", log["data"]["id"]);
+          // Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context)=>Home()), (Route<dynamic> route) => false);
+        // });
+      }else{
+        print(res.body);
+      }
+    }
+
+
+
   @override
   void initState(){
     super.initState();
+    // _getData();
+    // fetchData('1', 'token');
     Timer(Duration(seconds: 3),(){
       Navigator.of(context).pushReplacement(MaterialPageRoute(
         builder: (context)=>Home(),

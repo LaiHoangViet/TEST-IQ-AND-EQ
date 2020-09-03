@@ -2,8 +2,18 @@ import 'package:flutter/material.dart';
 import 'ListTopic.dart';
 import 'Rank.dart';
 import 'SizeConfig.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:async';
 
 class Home extends StatelessWidget {
+  String gettoken;
+  String userId;
+  _getToken() async{
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    gettoken = sharedPreferences.getString("token");
+    userId = sharedPreferences.getString("userId");
+    print(gettoken);
+  }
   List<String> HomeCate = [
     'List Topic',
     'Rank',
@@ -28,6 +38,7 @@ class Home extends StatelessWidget {
               return ListTile(
                 onTap: () {
                   if (index == 0) {
+                    _getToken();
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => Listopic()));
                   } else {
