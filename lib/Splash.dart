@@ -23,7 +23,7 @@ class _SplashscreenState extends State<Splashscreen>{
   var api = "http://apiiq.bigorder.vn/api/v1/user/auto-login";
 
 
-    fetchData(String id, String token) async {
+    fetchData() async {
       // Map data={
       //   'id':id,
       //   'token':token,
@@ -39,8 +39,9 @@ class _SplashscreenState extends State<Splashscreen>{
         print(log);
         // setState(() {
         //                                Key      value
+          sharedPreferences.setInt("userId", log["data"]["id"]);
           sharedPreferences.setString("token", log["data"]["token"]);
-          sharedPreferences.setString("userid", log["data"]["id"]);
+
           // Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context)=>Home()), (Route<dynamic> route) => false);
         // });
       }else{
@@ -54,12 +55,13 @@ class _SplashscreenState extends State<Splashscreen>{
   void initState(){
     super.initState();
     // _getData();
-    // fetchData('1', 'token');
+    fetchData();
     Timer(Duration(seconds: 3),(){
       Navigator.of(context).pushReplacement(MaterialPageRoute(
         builder: (context)=>Home(),
       ));
-    });
+    }
+    );
   }
   @override
   Widget build(BuildContext context){
