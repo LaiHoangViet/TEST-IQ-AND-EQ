@@ -1,9 +1,48 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'ListTopic.dart';
 import 'Rank.dart';
 import 'SizeConfig.dart';
+import 'links.dart';
+import 'package:http/http.dart' as http;
 
-class Home extends StatelessWidget {
+
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  API api = new API();
+  String gettoken, IQ;
+  int userId;
+  var res, cate;
+
+  @override
+  void initState(){
+    super.initState();
+
+    getToken();
+  }
+
+  getToken() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    gettoken = sharedPreferences.getString("token");
+    userId = sharedPreferences.getInt("userId");
+    res = await http.get(api.linkList(userId, gettoken));
+    // sharedPreferences.setInt("cateId", res["categorys"]["id"]);
+    // cateId = sharedPreferences.getInt("cateId");
+    // resTopic = await http.get(api.Topic(cateId,userId, gettoken));
+    cate = jsonDecode(res.body)["categorys"];
+    // print(cate);
+    sharedPreferences.setInt("IQ", cate[0]["id"]);
+    sharedPreferences.setInt("EQ", cate[1]["id"]);
+    sharedPreferences.setInt("MEM", cate[2]["id"]);
+    sharedPreferences.setInt("EYE", cate[3]["id"]);
+    setState(() {});
+  }
 
   List<String> HomeCate = [
     'List Topic',
@@ -127,3 +166,5 @@ class Home extends StatelessWidget {
             }));
   }
 }
+
+

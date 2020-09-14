@@ -8,7 +8,6 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 
-
 class Splashscreen extends StatefulWidget{
   @override
   _SplashscreenState createState() => _SplashscreenState();
@@ -18,7 +17,6 @@ class Splashscreen extends StatefulWidget{
 class _SplashscreenState extends State<Splashscreen>{
 
   var res, log;
-
   // Khai báo đường link api
   var api = "http://apiiq.bigorder.vn/api/v1/user/auto-login";
 
@@ -36,7 +34,7 @@ class _SplashscreenState extends State<Splashscreen>{
       // print(res.toString());
       if(res.statusCode==200){
         log = jsonDecode(res.body);
-        print(log);
+        // print(log);
         // setState(() {
         //                                Key      value
           sharedPreferences.setInt("userId", log["data"]["id"]);
@@ -56,7 +54,7 @@ class _SplashscreenState extends State<Splashscreen>{
     super.initState();
     // _getData();
     fetchData();
-    Timer(Duration(seconds: 3),(){
+    Timer(Duration(seconds: 1),(){
       Navigator.of(context).pushReplacement(MaterialPageRoute(
         builder: (context)=>Home(),
       ));
