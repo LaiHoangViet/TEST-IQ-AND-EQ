@@ -1,9 +1,7 @@
 import 'Home.dart';
 import 'package:flutter/material.dart';
-import 'SizeConfig.dart';
 
 class Ranks extends StatelessWidget {
-  bool _active = false;
   List<Widget> _Rank = [
     Container(
       margin: EdgeInsets.all(10),

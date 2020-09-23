@@ -1,20 +1,24 @@
 import 'package:flutter/material.dart';
+import 'Home.dart';
 import 'ListTopic.dart';
 
 class Score extends StatefulWidget {
-  int count, k;
+  int count;
+  int k;
+  int timeCount;
 
-  Score({Key key, @required this.count, @required this.k}) : super(key: key);
+  Score({Key key, @required this.count,   @required this.k, @required this.timeCount}) : super(key: key);
 
   @override
-  _ScoreState createState() => _ScoreState(count, k);
+  _ScoreState createState() => _ScoreState(count, k, timeCount);
 }
 
 class _ScoreState extends State<Score> {
-  var count;
-  var k;
+  int count;
+  int k;
+  int timeCount;
 
-  _ScoreState(this.count, this.k);
+  _ScoreState( this.count, this.k,  this.timeCount);
 
   Future<bool> _onWillPop() async {
     Navigator.push(context, MaterialPageRoute(
@@ -26,9 +30,11 @@ class _ScoreState extends State<Score> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
+    return
+      WillPopScope(
       onWillPop: () => _onWillPop(),
-        child:MaterialApp(
+        child:
+        MaterialApp(
           title: '',
           home: Scaffold(
             appBar: AppBar(
@@ -45,8 +51,22 @@ class _ScoreState extends State<Score> {
               child: Center(
                 child: Column(
                   children: [
+                    SizedBox(
+                      width: 200.0,
+                      height: 30.0,
+                    ),
                     Expanded(
-                      flex: 5,
+                      flex: 3,
+                      child: Text(
+                        "Thời Gian: $timeCount s",
+                        style: TextStyle(
+                          fontSize: 24,
+                          color: Colors.green,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 3,
                       child: Text(
                         "SCORE",
                         style: TextStyle(
@@ -64,7 +84,23 @@ class _ScoreState extends State<Score> {
                           color: Colors.green,
                         ),
                       ),
-                    )
+                    ),
+                    Expanded(
+                      flex: 3,
+                      child:FlatButton(
+                        padding: EdgeInsets.all(8.0),
+                        onPressed: () => {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => Home()),
+                          ),
+                        },
+                        child: Icon(Icons.home,
+                          size: 40,
+
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),

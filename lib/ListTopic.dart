@@ -1,9 +1,11 @@
 import 'dart:convert';
 
+import 'package:demo1/Home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'ImageTest.dart';
 import 'Test.dart';
 import 'package:http/http.dart' as http;
 import 'links.dart';
@@ -15,9 +17,18 @@ class Listopic extends StatefulWidget {
 
 class _ListopicState extends State<Listopic> {
   API api = new API();
-  var resIQ, resEQ, resMEM, resEYE, topicEQ, topicMEM, topicEYE, getTopic, resTopic;
-  var topicIQ  ;
- // var topicIQ = new List<Map<String, dynamic>>();
+  var resIQ,
+      resEQ,
+      resMEM,
+      resEYE,
+      topicEQ,
+      topicMEM,
+      topicEYE,
+      getTopic,
+      resTopic;
+  var topicIQ;
+
+  // var topicIQ = new List<Map<String, dynamic>>();
   String gettoken;
   int userId, cateId, IQ, EQ, MEM, EYE;
 
@@ -54,12 +65,21 @@ class _ListopicState extends State<Listopic> {
     setState(() {});
   }
 
+  Future<bool> _onWillPop() async {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => Home()),
+    );
+    // await showDialog or Show add banners or whatever
+    // then
+    return Future.value(true); // return true if the route to be popped
+  }
+
   List<Widget> containers(BuildContext context) {
     return [
       /*IQ*/
       Center(
-        child:
-        Column(
+        child: Column(
           children: <Widget>[
             Container(
               margin: const EdgeInsets.all(10),
@@ -73,43 +93,45 @@ class _ListopicState extends State<Listopic> {
                         /*Ảnh và tên bài test*/
                         Container(
                           padding: const EdgeInsets.all(10),
-                          child: topicIQ!= null?
-                          Row(
-                            mainAxisAlignment:
-                            MainAxisAlignment.spaceAround,
-                            children: <Widget>[
-                              ClipOval(
-                                child: Image.asset(
-                                  'images/anh1.jpg',
-                                  width: 100,
-                                  height: 100,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                              Container(
-                                child: Column(
+                          child: topicIQ != null
+                              ? Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
                                   children: <Widget>[
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          bottom: 15),
-                                      child: Text(
-                                        topicIQ[0]["content"],
-                                        // "Category",
-                                        style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold,
-                                        ),
+                                    ClipOval(
+                                      child: Image.asset(
+                                        'images/anh1.jpg',
+                                        width: 100,
+                                        height: 100,
+                                        fit: BoxFit.cover,
                                       ),
                                     ),
-                                    Text(
-                                      '100 - ***',
-                                      style: TextStyle(fontSize: 16),
+                                    Container(
+                                      child: Column(
+                                        children: <Widget>[
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                bottom: 15),
+                                            child: Text(
+                                              topicIQ[0]["content"],
+                                              // "Category",
+                                              style: TextStyle(
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ),
+                                          Text(
+                                            '100 - ***',
+                                            style: TextStyle(fontSize: 16),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ],
-                                ),
-                              ),
-                            ],
-                          ):  CircularProgressIndicator(backgroundColor: Colors.white),
+                                )
+                              : CircularProgressIndicator(
+                                  backgroundColor: Colors.white),
                         ),
                         /*Thông tin bài test*/
                         Container(
@@ -122,11 +144,11 @@ class _ListopicState extends State<Listopic> {
                               width: 1,
                             ),
                             borderRadius:
-                            BorderRadius.all(Radius.circular(4.0)),
+                                BorderRadius.all(Radius.circular(4.0)),
                           ),
                           child: Text(
                             'Thông tin bài test. '
-                                'Chúc bạn làm bài đạt điểm số cao nhất',
+                            'Chúc bạn làm bài đạt điểm số cao nhất',
                             textAlign: TextAlign.center,
                           ),
                         ),
@@ -136,15 +158,14 @@ class _ListopicState extends State<Listopic> {
                             bottom: 10,
                           ),
                           child: Row(
-                            mainAxisAlignment:
-                            MainAxisAlignment.spaceAround,
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: <Widget>[
                               RaisedButton(
                                 onPressed: () => {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => new Test(topicTest: topicIQ,)),
+                                        builder: (context) => new Test(topicTest:topicIQ)),
                                   ),
                                 },
                                 color: Colors.blue,
@@ -195,25 +216,28 @@ class _ListopicState extends State<Listopic> {
                           ),
                         ),
                         Container(
-                          child: topicEQ!=null?
-                          Column(
-                            children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 15),
-                                child: Text(
-                                  topicEQ[0]["content"],
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                              Text(
-                                '100 - ***',
-                                style: TextStyle(fontSize: 16),
-                              ),
-                            ],
-                          ) : CircularProgressIndicator(backgroundColor: Colors.white),
+                          child: topicEQ != null
+                              ? Column(
+                                  children: <Widget>[
+                                    Padding(
+                                      padding:
+                                          const EdgeInsets.only(bottom: 15),
+                                      child: Text(
+                                        topicEQ[0]["content"],
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                    Text(
+                                      '100 - ***',
+                                      style: TextStyle(fontSize: 16),
+                                    ),
+                                  ],
+                                )
+                              : CircularProgressIndicator(
+                                  backgroundColor: Colors.white),
                         ),
                       ],
                     ),
@@ -232,7 +256,7 @@ class _ListopicState extends State<Listopic> {
                     ),
                     child: Text(
                       'Thông tin bài test. '
-                          'Chúc bạn làm bài đạt điểm số cao nhất',
+                      'Chúc bạn làm bài đạt điểm số cao nhất',
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -249,7 +273,8 @@ class _ListopicState extends State<Listopic> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => new Test(topicTest: topicEQ)),
+                                  builder: (context) =>
+                                      new ImageQuiz()),
                             ),
                           },
                           color: Colors.blue,
@@ -297,25 +322,28 @@ class _ListopicState extends State<Listopic> {
                           ),
                         ),
                         Container(
-                          child: topicMEM !=null?
-                          Column(
-                            children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 15),
-                                child: Text(
-                                  topicMEM[0]["content"],
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                              Text(
-                                '100 - ***',
-                                style: TextStyle(fontSize: 16),
-                              ),
-                            ],
-                          ): CircularProgressIndicator(backgroundColor: Colors.white),
+                          child: topicMEM != null
+                              ? Column(
+                                  children: <Widget>[
+                                    Padding(
+                                      padding:
+                                          const EdgeInsets.only(bottom: 15),
+                                      child: Text(
+                                        topicMEM[0]["content"],
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                    Text(
+                                      '100 - ***',
+                                      style: TextStyle(fontSize: 16),
+                                    ),
+                                  ],
+                                )
+                              : CircularProgressIndicator(
+                                  backgroundColor: Colors.white),
                         ),
                       ],
                     ),
@@ -334,7 +362,114 @@ class _ListopicState extends State<Listopic> {
                     ),
                     child: Text(
                       'Thông tin bài test. '
-                          'Chúc bạn làm bài đạt điểm số cao nhất',
+                      'Chúc bạn làm bài đạt điểm số cao nhất',
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  /*Nút test và nút rank*/
+                  Container(
+                    padding: const EdgeInsets.only(
+                      bottom: 10,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        RaisedButton(
+                          onPressed: () => {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => new Test(
+                                        topicTest: 0,
+                                      )),
+                            ),
+                          },
+                          color: Colors.blue,
+                          child: Text('Test'),
+                          textColor: Colors.white,
+                          highlightElevation: 4.0,
+                        ),
+                        RaisedButton(
+                          onPressed: () {},
+                          color: Colors.blue,
+                          child: Text('Rank'),
+                          textColor: Colors.white,
+                          highlightElevation: 4.0,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+      Container(
+        margin: const EdgeInsets.all(10),
+        child: Column(
+          children: <Widget>[
+            Card(
+              elevation: 5,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  /*Ảnh và tên bài test*/
+                  Container(
+                    padding: const EdgeInsets.all(10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        ClipOval(
+                          child: Image.asset(
+                            'images/anh1.jpg',
+                            width: 100,
+                            height: 100,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        Container(
+                          child: topicEYE != null
+                              ? Column(
+                                  children: <Widget>[
+                                    Padding(
+                                      padding:
+                                          const EdgeInsets.only(bottom: 15),
+                                      child: Text(
+                                        topicEYE[0]["content"],
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                    Text(
+                                      '100 - ***',
+                                      style: TextStyle(fontSize: 16),
+                                    ),
+                                  ],
+                                )
+                              : CircularProgressIndicator(
+                                  backgroundColor: Colors.white),
+                        ),
+                      ],
+                    ),
+                  ),
+                  /*Thông tin bài test*/
+                  Container(
+                    margin: EdgeInsets.only(
+                        top: 20, bottom: 20, left: 20, right: 20),
+                    padding: EdgeInsets.all(5),
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        width: 1,
+                      ),
+                      borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                    ),
+                    child: Text(
+                      'Thông tin bài test. '
+                      'Chúc bạn làm bài đạt điểm số cao nhất',
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -375,98 +510,75 @@ class _ListopicState extends State<Listopic> {
           ],
         ),
       ),
-      Container(
-        margin: const EdgeInsets.all(10),
-        child: Column(
-          children: <Widget>[
-            Card(
-              elevation: 5,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  /*Ảnh và tên bài test*/
-                  Container(
-                    padding: const EdgeInsets.all(10),
+    ];
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return WillPopScope(
+      onWillPop: () => _onWillPop(),
+      child: MaterialApp(
+        title: '',
+        home: DefaultTabController(
+          length: 4,
+          child: Scaffold(
+            appBar: AppBar(
+              leading: new IconButton(
+                icon: new Icon(Icons.arrow_back, color: Colors.white),
+                onPressed: () => Navigator.of(context).pop(),
+              ),
+              title: Text('Home'),
+              centerTitle: true,
+              bottom: TabBar(
+                tabs: [
+                  // ListView.builder(
+                  //     itemCount: topic.length,
+                  //     itemBuilder: (context, index){
+                  //       var tabCate = topic[index];
+                  //       return
+                  Tab(
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        ClipOval(
-                          child: Image.asset(
-                            'images/anh1.jpg',
-                            width: 100,
-                            height: 100,
-                            fit: BoxFit.cover,
-                          ),
+                        Text(
+                          "IQ",
+                          // tabCate["Category"],
+                          textScaleFactor: 2,
                         ),
-                        Container(
-                          child: topicEYE!=null?
-                          Column(
-                            children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 15),
-                                child: Text(
-                                  topicEYE[0]["content"] ,
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                              Text(
-                                '100 - ***',
-                                style: TextStyle(fontSize: 16),
-                              ),
-                            ],
-                          ):  CircularProgressIndicator(backgroundColor: Colors.white),
+                      ],
+                    ),
+                    //   );
+                    // }
+                  ),
+                  Tab(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          'EQ',
+                          textScaleFactor: 2,
                         ),
                       ],
                     ),
                   ),
-                  /*Thông tin bài test*/
-                  Container(
-                    margin: EdgeInsets.only(
-                        top: 20, bottom: 20, left: 20, right: 20),
-                    padding: EdgeInsets.all(5),
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        width: 1,
-                      ),
-                      borderRadius: BorderRadius.all(Radius.circular(4.0)),
-                    ),
-                    child: Text(
-                      'Thông tin bài test. '
-                          'Chúc bạn làm bài đạt điểm số cao nhất',
-                      textAlign: TextAlign.center,
+                  Tab(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          'Mem',
+                          textScaleFactor: 2,
+                        ),
+                      ],
                     ),
                   ),
-                  /*Nút test và nút rank*/
-                  Container(
-                    padding: const EdgeInsets.only(
-                      bottom: 10,
-                    ),
+                  Tab(
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        RaisedButton(
-                          onPressed: () => {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => new Test()),
-                            ),
-                          },
-                          color: Colors.blue,
-                          child: Text('Test'),
-                          textColor: Colors.white,
-                          highlightElevation: 4.0,
-                        ),
-                        RaisedButton(
-                          onPressed: () {},
-                          color: Colors.blue,
-                          child: Text('Rank'),
-                          textColor: Colors.white,
-                          highlightElevation: 4.0,
+                        Text(
+                          'Eye',
+                          textScaleFactor: 2,
                         ),
                       ],
                     ),
@@ -474,89 +586,12 @@ class _ListopicState extends State<Listopic> {
                 ],
               ),
             ),
-          ],
-        ),
-      ),
-    ];
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: '',
-      home: DefaultTabController(
-        length: 4,
-        child: Scaffold(
-          appBar: AppBar(
-            leading: new IconButton(
-              icon: new Icon(Icons.arrow_back, color: Colors.white),
-              onPressed: () => Navigator.of(context).pop(),
+            body: TabBarView(
+              children: containers(context),
             ),
-            title: Text('Home'),
-            centerTitle: true,
-            bottom: TabBar(
-              tabs: [
-                // ListView.builder(
-                //     itemCount: topic.length,
-                //     itemBuilder: (context, index){
-                //       var tabCate = topic[index];
-                //       return
-                        Tab(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text(
-                              "IQ",
-                              // tabCate["Category"],
-                              textScaleFactor: 2,
-                            ),
-                          ],
-                        ),
-                    //   );
-                    // }
-                    ),
-                Tab(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        'EQ',
-                        textScaleFactor: 2,
-                      ),
-                    ],
-                  ),
-                ),
-                Tab(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        'Mem',
-                        textScaleFactor: 2,
-                      ),
-                    ],
-                  ),
-                ),
-                Tab(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        'Eye',
-                        textScaleFactor: 2,
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-          body: TabBarView(
-            children: containers(context),
           ),
         ),
       ),
     );
   }
 }
-
