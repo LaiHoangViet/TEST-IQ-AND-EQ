@@ -247,9 +247,6 @@ class _ImageQuizState extends State<ImageQuiz> {
     return Future.value(true); // return true if the route to be popped
   }
 
-
-
-
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -312,30 +309,31 @@ class _ImageQuizState extends State<ImageQuiz> {
                     Expanded(
                       flex: 4,
                       child: GridView.count(
-                        padding: const EdgeInsets.all(20),
-                        crossAxisCount: 3,
-                        mainAxisSpacing: 5.0,
-                        crossAxisSpacing: 5.0,
-                        childAspectRatio: 1.25,
-                        children:List.generate(images["Data"][k]["Ans"].length, (index) {
-                          return GestureDetector(
-                            onTap: () => chooseAnswer(index),
-                            child: Container(
-                              width: SizeConfig.blockSizeHorizontal * 100,
-                              height: SizeConfig.blockSizeVertical * 100,
-                              decoration: state == index
-                                  ? myBoxDecoration()
-                                  : BoxDecoration(
-                                border: Border.all(width: 0),
+
+                          padding: const EdgeInsets.all(20),
+                          crossAxisCount: 3,
+                          mainAxisSpacing: 5.0,
+                          crossAxisSpacing: 5.0,
+                          childAspectRatio: 1.25,
+                          children:List.generate(images["Data"][k]["Ans"].length, (index) {
+                            return GestureDetector(
+                              onTap: () => chooseAnswer(index),
+                              child: Container(
+                                width: SizeConfig.blockSizeHorizontal * 100,
+                                height: SizeConfig.blockSizeVertical * 100,
+                                decoration: state == index
+                                    ? myBoxDecoration()
+                                    : BoxDecoration(
+                                  border: Border.all(width: 0),
+                                ),
+                                child: Image.asset(
+                                  images["Data"][k]["Ans"][index]["Answer"],
+                                  width: SizeConfig.screenWidth,
+                                  height: SizeConfig.screenHeight,
+                                ),
                               ),
-                              child: Image.asset(
-                                images["Data"][k]["Ans"][index]["Answer"],
-                                width: SizeConfig.screenWidth,
-                                height: SizeConfig.screenHeight,
-                              ),
-                            ),
-                          );
-                        })
+                            );
+                          })
                       ),
                     ),
                   ],

@@ -4,8 +4,11 @@ import 'package:demo1/Home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:redux/redux.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'ImageTest.dart';
+import 'Memory_Game.dart';
 import 'Test.dart';
 import 'package:http/http.dart' as http;
 import 'links.dart';
@@ -38,6 +41,11 @@ class _ListopicState extends State<Listopic> {
 
     getToken();
   }
+
+  final store = Store<AppState>(
+    reducer,
+    initialState: AppState.init(),
+  );
 
   getToken() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
@@ -379,9 +387,12 @@ class _ListopicState extends State<Listopic> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => new Test(
-                                        topicTest: 0,
-                                      )),
+                                builder: (context) => StoreProvider<AppState>(
+                                  store: store,
+                                  child: MaterialApp(
+                                    home: Game(store),
+                                  ),
+                                ),),
                             ),
                           },
                           color: Colors.blue,
