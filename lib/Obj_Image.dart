@@ -1,14 +1,31 @@
 
-class ImageModel {
+class Ans {
   int id;
-  String title;
-  String url;
+  String ans;
 
-  ImageModel({ this.id, this.title, this.url });
+  Ans({ this.id, this.ans,  });
 
-  ImageModel.fromJSON(Map<String, dynamic> encodedJSON) {
-    id = encodedJSON['id'];
-    title = encodedJSON['title'];
-    url = encodedJSON['url'];
+  factory Ans.fromJson(Map<String, dynamic> parsedJson){
+    return Ans(
+      id : parsedJson['id'],
+      ans : parsedJson['Answer'],
+    );
   }
 }
+
+class Data {
+  int id;
+  String question;
+  List<Ans> answer;
+
+  Data({ this.id, this.question, this.answer });
+
+  factory Data.fromJson(Map<String, dynamic> parsedJson){
+    return Data(
+      id : parsedJson['id'],
+      question : parsedJson['Ques'],
+      answer : parsedJson['Ans'],
+    );
+  }
+}
+

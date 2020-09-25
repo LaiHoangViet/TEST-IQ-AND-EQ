@@ -102,10 +102,17 @@ class _ImageQuizState extends State<ImageQuiz> {
       context,
       MaterialPageRoute(
           builder: (context) => Score(
+<<<<<<< HEAD
             count: k + 1,
             k: images["Data"].length,
             timeCount: countTime,
           )),
+=======
+                count: k + 1,
+                k: images["Data"].length,
+                timeCount: countTime,
+              )),
+>>>>>>> d816c72a9842a8a02de3af175689f82c8e7d2316
     );
   }
 
@@ -312,6 +319,7 @@ class _ImageQuizState extends State<ImageQuiz> {
                     Expanded(
                       flex: 4,
                       child: GridView.count(
+<<<<<<< HEAD
                           padding: const EdgeInsets.all(20),
                           crossAxisCount: 3,
                           mainAxisSpacing: 5.0,
@@ -336,6 +344,32 @@ class _ImageQuizState extends State<ImageQuiz> {
                               ),
                             );
                           })
+=======
+                        padding: const EdgeInsets.all(20),
+                        crossAxisCount: 3,
+                        mainAxisSpacing: 5.0,
+                        crossAxisSpacing: 5.0,
+                        childAspectRatio: 1.25,
+                        children:List.generate(images["Data"][k]["Ans"].length, (index) {
+                          return GestureDetector(
+                            onTap: () => chooseAnswer(index + 1 ),
+                            child: Container(
+                              width: SizeConfig.blockSizeHorizontal * 100,
+                              height: SizeConfig.blockSizeVertical * 100,
+                              decoration: state == index +1
+                                  ? myBoxDecoration()
+                                  : BoxDecoration(
+                                border: Border.all(width: 0),
+                              ),
+                              child: Image.asset(
+                                images["Data"][k]["Ans"][index]["Answer"],
+                                width: SizeConfig.screenWidth,
+                                height: SizeConfig.screenHeight,
+                              ),
+                            ),
+                          );
+                        })
+>>>>>>> d816c72a9842a8a02de3af175689f82c8e7d2316
                       ),
                     ),
                   ],
