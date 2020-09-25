@@ -129,7 +129,8 @@ class Game extends StatelessWidget {
                                                 store.dispatch(Action.end),
                                             width: w)
                                         : setText('End', w * 0.08, Colors.red)),
-                                Container(
+                              state.page<1
+                                  ?Container(
                                     width: w,
                                     height: w * 1.05,
                                     padding: pad(0, w * 0.05),
@@ -139,6 +140,9 @@ class Game extends StatelessWidget {
                                         depth,
                                         click,
                                         colors[state.count % colors.length]))
+                                  :
+                                  Container(),
+
                                 // : Container(
                                 //     width: w,
                                 //     height: w,
