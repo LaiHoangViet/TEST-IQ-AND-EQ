@@ -144,6 +144,7 @@ class _ImageQuizState extends State<ImageQuiz> {
     });
     super.initState();
   }
+
   void _startTimer() {
     _counter = 10;
     if (_timer != null) {
@@ -253,7 +254,7 @@ class _ImageQuizState extends State<ImageQuiz> {
         appBar: AppBar(
           leading: new IconButton(
             icon: new Icon(Icons.arrow_back, color: Colors.white),
-            onPressed: () => Navigator.of(context).pop(),
+            onPressed: () => Navigator.of(context).pop(_timer.cancel()),
           ),
           centerTitle: true,
           title: Text('Test'),
@@ -308,6 +309,7 @@ class _ImageQuizState extends State<ImageQuiz> {
                     Expanded(
                       flex: 4,
                       child: GridView.count(
+
                           padding: const EdgeInsets.all(20),
                           crossAxisCount: 3,
                           mainAxisSpacing: 5.0,
