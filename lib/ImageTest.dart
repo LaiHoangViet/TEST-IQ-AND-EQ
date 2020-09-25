@@ -17,114 +17,8 @@ class _ImageQuizState extends State<ImageQuiz> {
   int _counter = 270;
   int countTime;
   int k = 0;
-  var clientAns, serverAns;
+  var clientAns, serverAns, stateSet;
   bool disableAnswer = false;
-
-  void _startTimer() {
-    _counter = 270;
-    if (_timer != null) {
-      _timer.cancel();
-    }
-    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
-      if (_counter > 0) {
-        setState(() {
-          _counter--;
-          countTime = 10 - _counter;
-        });
-      } else {
-        _timer.cancel();
-        return showDialog<void>(
-          context: context,
-          barrierDismissible: false, // user must tap button!
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: Text('Notice'),
-              content: SingleChildScrollView(
-                child: ListBody(
-                  children: <Widget>[
-                    Text('TIME OVER'),
-                  ],
-                ),
-              ),
-              actions: <Widget>[
-                FlatButton(
-                  child: Text('Submit'),
-                  onPressed: () {},
-                ),
-              ],
-            );
-          },
-        );
-      }
-    });
-  }
-
-  BoxDecoration myBoxDecoration() {
-    return BoxDecoration(
-      border: Border.all(
-        color: Colors.red, //                   <--- border color
-        width: 5.0,
-      ),
-    );
-  }
-
-  var state;
-
-  void chooseAnswer(int index) {
-    setState(() {
-      clientAns[k][0]=images["Data"][k]["Ans"][index]["Answer"];
-      print(clientAns[k][0]);
-      state = index;
-    });
-  }
-
-  void submit() {
-    int count=0;
-    checkAnswer();
-    for(int t=0; t<images["Data"].length; t++){
-      if(clientAns[t][0] == serverAns[t][0]){
-        count++;
-      }
-    }
-    _timer.cancel();
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-          builder: (context) => Score(
-            count: count,
-            k: images["Data"].length,
-            timeCount: countTime,
-          )
-      ),
-    );
-    // _timer.cancel();
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-          builder: (context) => Score(
-                count: k + 1,
-                k: images["Data"].length,
-                timeCount: countTime,
-              )),
-    );
-  }
-
-  void initState() {
-    setState(() {
-      // _startTimer();
-      clientAns = List.generate(6, (i) => List(1), growable: false);
-      serverAns = List.generate(6, (i) => List(1), growable: false);
-    });
-    super.initState();
-  }
-
-  Future<bool> _onWillPop() async {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => Listopic()),
-    );
-    return Future.value(true); // return true if the route to be popped
-  }
 
   Map<String, dynamic> images = {
     "Data": [
@@ -239,14 +133,122 @@ class _ImageQuizState extends State<ImageQuiz> {
     ]
   };
 
+
+  void initState() {
+    setState(() {
+      _startTimer();
+      clientAns = List.generate(images["Data"].length, (i) => List(1), growable: false);
+      serverAns = List.generate(images["Data"].length, (i) => List(1), growable: false);
+      stateSet = List.generate(images["Data"].length, (i) => List(1), growable: false);
+
+    });
+    super.initState();
+  }
+
+  void _startTimer() {
+    _counter = 10;
+    if (_timer != null) {
+      _timer.cancel();
+    }
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      if (_counter > 0) {
+        setState(() {
+          _counter--;
+          countTime = 10 - _counter;
+        });
+      } else {
+        _timer.cancel();
+        return showDialog<void>(
+          context: context,
+          barrierDismissible: false, // user must tap button!
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('Notice'),
+              content: SingleChildScrollView(
+                child: ListBody(
+                  children: <Widget>[
+                    Text('TIME OVER'),
+                  ],
+                ),
+              ),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text('Submit'),
+                  onPressed: () {
+                    submit();
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      }
+    });
+  }
+
+  BoxDecoration myBoxDecoration() {
+    return BoxDecoration(
+      border: Border.all(
+        color: Colors.red,
+        width: 5.0,
+      ),
+    );
+  }
+
+  var state;
+
+  void chooseAnswer(int index) {
+    setState(() {
+      state = index;
+      stateSet[k][0] = index;
+      print(stateSet);
+      clientAns[k][0]=images["Data"][k]["Ans"][index]["Answer"];
+      print(clientAns[k][0]);
+    });
+  }
   void checkAnswer(){
     for(int t=0; t<images["Data"].length; t++){
       for(int index =0; index < images["Data"][t]["Ans"].length; index++)
         if(images["Data"][t]["Ans"][index]["success"]==1){
           serverAns[t][0] = images["Data"][t]["Ans"][index]["Answer"];
+          print(serverAns[t][0]);
         }
     }
   }
+
+  void submit() {
+    int count=0;
+    checkAnswer();
+    for(int t=0; t<images["Data"].length; t++){
+      if(clientAns[t][0] == serverAns[t][0]){
+        count++;
+      }
+    }
+    _timer.cancel();
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (context) => Score(
+            count: count,
+            k: images["Data"].length,
+            timeCount: countTime,
+          )
+      ),
+    );
+  }
+
+
+
+  Future<bool> _onWillPop() async {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => Listopic()),
+    );
+    return Future.value(true); // return true if the route to be popped
+  }
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -255,7 +257,7 @@ class _ImageQuizState extends State<ImageQuiz> {
         appBar: AppBar(
           leading: new IconButton(
             icon: new Icon(Icons.arrow_back, color: Colors.white),
-            onPressed: () => Navigator.of(context).pop(),
+            onPressed: () => Navigator.of(context).pop(_timer.cancel()),
           ),
           centerTitle: true,
           title: Text('Test'),
@@ -279,15 +281,13 @@ class _ImageQuizState extends State<ImageQuiz> {
                         ),
                       ),
                     ),
-                    Container(
-                      margin: const EdgeInsets.only(right: 20),
-                      width: 60,
-                      height: 60,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          width: 1,
+                    Padding(
+                      padding: EdgeInsets.only(right: 10),
+                      child: Text(
+                        '$_counter',
+                        style: TextStyle(
+                          fontSize: 30,
                         ),
-                        borderRadius: BorderRadius.circular(50),
                       ),
                     ),
                   ],
@@ -319,11 +319,11 @@ class _ImageQuizState extends State<ImageQuiz> {
                         childAspectRatio: 1.25,
                         children:List.generate(images["Data"][k]["Ans"].length, (index) {
                           return GestureDetector(
-                            onTap: () => chooseAnswer(index + 1 ),
+                            onTap: () => chooseAnswer(index),
                             child: Container(
                               width: SizeConfig.blockSizeHorizontal * 100,
                               height: SizeConfig.blockSizeVertical * 100,
-                              decoration: state == index +1
+                              decoration: state == index
                                   ? myBoxDecoration()
                                   : BoxDecoration(
                                 border: Border.all(width: 0),
@@ -351,15 +351,19 @@ class _ImageQuizState extends State<ImageQuiz> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      IconButton(
+                      k > 0 ? IconButton(
                         icon: Icon(Icons.chevron_left),
                         color: Colors.white,
                         iconSize: 40,
                         onPressed: () {
-                          setState(() {});
+                          setState(() {
+                            k--;
+                            state = stateSet[k][0];
+                            images["Data"][k];
+                          });
                         },
-                      ),
-                      k < images["Data"].length ? IconButton(
+                      ):Container(),
+                      k < images["Data"].length -1 ? IconButton(
                         icon: Icon(Icons.chevron_right),
                         color: Colors.white,
                         iconSize: 40,
@@ -368,7 +372,7 @@ class _ImageQuizState extends State<ImageQuiz> {
                           setState(() {
                             k++;
                             images["Data"][k];
-                            state =0;
+                            state =-1;
                           });
                         },
                       ):FlatButton(

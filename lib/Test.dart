@@ -75,7 +75,7 @@ class _TestState extends State<Test> {
   Timer _timer;
 
   void _startTimer() {
-    _counter = 30;
+    _counter = 10;
     if (_timer != null) {
       _timer.cancel();
     }
