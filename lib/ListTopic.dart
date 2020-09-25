@@ -1,9 +1,12 @@
 import 'dart:convert';
 
 import 'package:demo1/Home.dart';
+import 'package:demo1/Memory_Game.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:redux/redux.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'ImageTest.dart';
 import 'Test.dart';
@@ -65,6 +68,10 @@ class _ListopicState extends State<Listopic> {
     setState(() {});
   }
 
+  final store = Store<AppState>(
+    reducer,
+    initialState: AppState.init(),
+  );
   Future<bool> _onWillPop() async {
     Navigator.push(
       context,
@@ -390,7 +397,18 @@ class _ListopicState extends State<Listopic> {
                           highlightElevation: 4.0,
                         ),
                         RaisedButton(
-                          onPressed: () {},
+                          onPressed: () => {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => StoreProvider<AppState>(
+                                    store: store,
+                                    child: MaterialApp(
+                                      home: Game(store),
+                                    ),
+                                  ),),
+                            ),
+                          },
                           color: Colors.blue,
                           child: Text('Rank'),
                           textColor: Colors.white,

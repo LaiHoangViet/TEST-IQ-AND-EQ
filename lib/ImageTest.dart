@@ -16,10 +16,9 @@ class _ImageQuizState extends State<ImageQuiz> {
   Timer _timer;
   int _counter = 270;
   int countTime;
-  int k=0;
-  var clientAns;
+  int k = 0;
+  var clientAns, serverAns;
   bool disableAnswer = false;
-
 
   void _startTimer() {
     _counter = 270;
@@ -60,33 +59,61 @@ class _ImageQuizState extends State<ImageQuiz> {
     });
   }
 
+  BoxDecoration myBoxDecoration() {
+    return BoxDecoration(
+      border: Border.all(
+        color: Colors.red, //                   <--- border color
+        width: 5.0,
+      ),
+    );
+  }
+
+  var state;
+
   void chooseAnswer(int index) {
     setState(() {
-      clientAns[k][0] = index ;
-      disableAnswer = true;
+      clientAns[k][0]=images["Data"][k]["Ans"][index]["Answer"];
+      print(clientAns[k][0]);
+      state = index;
     });
   }
 
-  void submit(){
-
+  void submit() {
+    int count=0;
+    checkAnswer();
+    for(int t=0; t<images["Data"].length; t++){
+      if(clientAns[t][0] == serverAns[t][0]){
+        count++;
+      }
+    }
+    _timer.cancel();
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (context) => Score(
+            count: count,
+            k: images["Data"].length,
+            timeCount: countTime,
+          )
+      ),
+    );
     // _timer.cancel();
     Navigator.push(
       context,
       MaterialPageRoute(
           builder: (context) => Score(
-            count: k+1,
-            k: urls.length,
+            count: k + 1,
+            k: images["Data"].length,
             timeCount: countTime,
-          )
-      ),
+          )),
     );
   }
-
 
   void initState() {
     setState(() {
       // _startTimer();
       clientAns = List.generate(6, (i) => List(1), growable: false);
+      serverAns = List.generate(6, (i) => List(1), growable: false);
     });
     super.initState();
   }
@@ -99,280 +126,275 @@ class _ImageQuizState extends State<ImageQuiz> {
     return Future.value(true); // return true if the route to be popped
   }
 
+  Map<String, dynamic> images = {
+    "Data": [
+      {
+        "id": 1,
+        "Ques": "images/Ques1.png",
+        "Ans": [
+          {
+            "id": 1,
+            "Answer": "images/Ans1.png",
+            "success": 0,
+          },
+          {
+            "id": 2,
+            "Answer": "images/Ans2.png",
+            "success": 0,
+          },
+          {
+            "id": 3,
+            "Answer": "images/Ans3.png",
+            "success": 0,
+          },
+          {
+            "id": 4,
+            "Answer": "images/Ans4.png",
+            "success": 0,
+          },
+          {
+            "id": 5,
+            "Answer": "images/Ans5.png",
+            "success": 0,
+          },
+          {
+            "id": 6,
+            "Answer": "images/Ans6.png",
+            "success": 1,
+          },
+        ]
+      },
+      {
+        "id": 1,
+        "Ques": "images/crown.png",
+        "Ans": [
+          {
+            "id": 1,
+            "Answer": "images/Ans1.png",
+            "success": 0,
+          },
+          {
+            "id": 2,
+            "Answer": "images/Ans2.png",
+            "success": 0,
+          },
+          {
+            "id": 3,
+            "Answer": "images/Ans3.png",
+            "success": 0,
+          },
+          {
+            "id": 4,
+            "Answer": "images/Ans4.png",
+            "success": 0,
+          },
+          {
+            "id": 5,
+            "Answer": "images/Ans5.png",
+            "success": 0,
+          },
+          {
+            "id": 6,
+            "Answer": "images/Ans6.png",
+            "success": 1,
+          },
+        ]
+      },
+      {
+        "id": 1,
+        "Ques": "images/Ques1.png",
+        "Ans": [
+          {
+            "id": 1,
+            "Answer": "images/Ans1.png",
+            "success": 0,
+          },
+          {
+            "id": 2,
+            "Answer": "images/Ans2.png",
+            "success": 0,
+          },
+          {
+            "id": 3,
+            "Answer": "images/Ans3.png",
+            "success": 0,
+          },
+          {
+            "id": 4,
+            "Answer": "images/Ans4.png",
+            "success": 0,
+          },
+          {
+            "id": 5,
+            "Answer": "images/Ans5.png",
+            "success": 0,
+          },
+          {
+            "id": 6,
+            "Answer": "images/Ans6.png",
+            "success": 1,
+          },
+        ]
+      },
+    ]
+  };
 
-
-  List<String> urls = <String>[
-    "https://testiq.vn//Images/Q1.png",
-    "https://testiq.vn//Images/Q2.png",
-    "https://testiq.vn//Images/Q3.png",
-    "https://testiq.vn//Images/Q4.png",
-    "https://testiq.vn//Images/Q5.png",
-    "https://testiq.vn//Images/Q6.png",
-  ];
+  void checkAnswer(){
+    for(int t=0; t<images["Data"].length; t++){
+      for(int index =0; index < images["Data"][t]["Ans"].length; index++)
+        if(images["Data"][t]["Ans"][index]["success"]==1){
+          serverAns[t][0] = images["Data"][t]["Ans"][index]["Answer"];
+        }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () => _onWillPop(),
-      child: Material(
-        child: Scaffold(
-          appBar: AppBar(
-            leading: new IconButton(
-              icon: new Icon(Icons.arrow_back, color: Colors.white),
-              onPressed: () => Navigator.of(context).pop(),
-            ),
-            centerTitle: true,
-            title: Text('Test'),
+    return Material(
+      child: Scaffold(
+        appBar: AppBar(
+          leading: new IconButton(
+            icon: new Icon(Icons.arrow_back, color: Colors.white),
+            onPressed: () => Navigator.of(context).pop(),
           ),
-          body: Container(
-            child: Column(
-              children: [
-                Row(
+          centerTitle: true,
+          title: Text('Test'),
+        ),
+        body: Container(
+          child: Column(
+            children: <Widget>[
+              Expanded(
+                flex: 1,
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(left: 10),
+                  children: <Widget>[
+                    Container(
+                      margin: const EdgeInsets.only(left: 20),
                       child: Text(
-                        'Câu: ${k+1}/${urls.length}',
+                        "Câu: 1/10",
+                        // textAlign: TextAlign.left,
                         style: TextStyle(
-                          fontSize: 24,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(right: 10),
-                      child: Text(
-                        '$_counter',
-                        style: TextStyle(
-                          fontSize: 30,
+                    Container(
+                      margin: const EdgeInsets.only(right: 20),
+                      width: 60,
+                      height: 60,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          width: 1,
                         ),
+                        borderRadius: BorderRadius.circular(50),
                       ),
                     ),
                   ],
                 ),
-                Expanded(
-                  flex: 4,
-                  child: Container(
-                      padding: const EdgeInsets.only(right: 20),
-                      margin: const EdgeInsets.only(bottom: 20),
-                      child: Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          Positioned(
-                            left: SizeConfig.blockSizeHorizontal + 30,
-                            top: SizeConfig.blockSizeVertical - 250,
-                            child: Column(
-                              children: [
-                                Text(
-                                  "QUESTION",
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                  ),
+              ),
+              Expanded(
+                flex: 9,
+                child: Column(
+                  children: [
+                    Expanded(
+                      flex: 6,
+                      child: Container(
+                          width: SizeConfig.screenWidth,
+                          height: SizeConfig.screenHeight,
+                          margin: EdgeInsets.all(10),
+                          child: Image.asset(
+                            images["Data"][k]["Ques"],
+                            width: SizeConfig.screenWidth,
+                            height: SizeConfig.screenHeight,
+                          )),
+                    ),
+                    Expanded(
+                      flex: 4,
+                      child: GridView.count(
+                          padding: const EdgeInsets.all(20),
+                          crossAxisCount: 3,
+                          mainAxisSpacing: 5.0,
+                          crossAxisSpacing: 5.0,
+                          childAspectRatio: 1.25,
+                          children:List.generate(images["Data"][k]["Ans"].length, (index) {
+                            return GestureDetector(
+                              onTap: () => chooseAnswer(index + 1 ),
+                              child: Container(
+                                width: SizeConfig.blockSizeHorizontal * 100,
+                                height: SizeConfig.blockSizeVertical * 100,
+                                decoration: state == index +1
+                                    ? myBoxDecoration()
+                                    : BoxDecoration(
+                                  border: Border.all(width: 0),
                                 ),
-                                SizedBox(
-                                  height: 20,
+                                child: Image.asset(
+                                  images["Data"][k]["Ans"][index]["Answer"],
+                                  width: SizeConfig.screenWidth,
+                                  height: SizeConfig.screenHeight,
                                 ),
-                                Image.network(urls[k]),
-                              ],
-                            ),
-                          ),
-                        ],
-                      )),
+                              ),
+                            );
+                          })
+                      ),
+                    ),
+                  ],
                 ),
-                Expanded(
-                    flex: 3,
-                    child: GridView.count(
-                      padding: const EdgeInsets.only(right: 10),
-                      crossAxisCount: 3,
-                      mainAxisSpacing: 5.0,
-                      crossAxisSpacing: 5.0,
-                      childAspectRatio: 1.25,
-                      children: [
-                        Container(
-                          padding: EdgeInsets.all(5),
-                          width: SizeConfig.blockSizeHorizontal * 30,
-                          height: SizeConfig.blockSizeVertical * 20,
-                          child: Stack(
-                            children: [
-                              Positioned(
-                                top: SizeConfig.blockSizeVertical ,
-                                left: SizeConfig.blockSizeHorizontal + 10,
-                                child: GestureDetector(
-                                  onTap: () => chooseAnswer(1),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(30.0)
-                                    ),
-                                    // width: SizeConfig.blockSizeHorizontal * 90,
-                                    // height: SizeConfig.blockSizeVertical * 90,
-                                    child: Image.network(urls[k]),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.all(5),
+              ),
+              Expanded(
+                flex: 1,
+                child: Container(
+                  padding: EdgeInsets.only(left: 20, right: 20),
+                  decoration: BoxDecoration(
+                    color: Colors.lightBlue,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      IconButton(
+                        icon: Icon(Icons.chevron_left),
+                        color: Colors.white,
+                        iconSize: 40,
+                        onPressed: () {
+                          setState(() {});
+                        },
+                      ),
+                      k < images["Data"].length ? IconButton(
+                        icon: Icon(Icons.chevron_right),
+                        color: Colors.white,
+                        iconSize: 40,
+                        onPressed: () {
 
-                          width: SizeConfig.blockSizeHorizontal * 30,
-                          height: SizeConfig.blockSizeVertical * 20,
-                          child: Stack(
-                            children: [
-                              Positioned(
-                                top: SizeConfig.blockSizeVertical,
-                                left: SizeConfig.blockSizeHorizontal - 110,
-                                child: GestureDetector(
-                                  onTap: () => chooseAnswer(2),
-                                  child: Container(
-                                    // width: SizeConfig.blockSizeHorizontal * 90,
-                                    // height: SizeConfig.blockSizeVertical * 90,
-                                    child: Image.network(urls[k]),
-                                  ),
-                                ),
-                              ),
-                            ],
+                          setState(() {
+                            k++;
+                            images["Data"][k];
+                            state =0;
+                          });
+                        },
+                      ):FlatButton(
+                        textColor: Colors.lightBlue,
+                        child: Text("Submit",
+                          style: TextStyle(
+                            fontSize: 20,
                           ),
                         ),
-                        Container(
-                          padding: EdgeInsets.all(5),
-                          width: SizeConfig.blockSizeHorizontal * 30,
-                          height: SizeConfig.blockSizeVertical * 20,
-                          child: Stack(
-                            children: [
-                              Positioned(
-                                top: SizeConfig.blockSizeVertical,
-                                left: SizeConfig.blockSizeHorizontal -210,
-                                child: GestureDetector(
-                                  onTap: () => chooseAnswer(3),
-                                  child: Container(
-                                    // width: SizeConfig.blockSizeHorizontal * 90,
-                                    // height: SizeConfig.blockSizeVertical * 90,
-                                    child: Image.network(urls[k]),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
                         ),
-                        Container(
-                          padding: EdgeInsets.all(5),
-                          width: SizeConfig.blockSizeHorizontal * 30,
-                          height: SizeConfig.blockSizeVertical * 20,
-                          child: Stack(
-                            children: [
-                              Positioned(
-                                top: SizeConfig.blockSizeVertical -100,
-                                left: SizeConfig.blockSizeHorizontal + 10,
-                                child: GestureDetector(
-                                  onTap: () => chooseAnswer(4),
-                                  child: Container(
-                                    // width: SizeConfig.blockSizeHorizontal * 90,
-                                    // height: SizeConfig.blockSizeVertical * 90,
-                                    child: Image.network(urls[k]),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.all(5),
-                          width: SizeConfig.blockSizeHorizontal * 30,
-                          height: SizeConfig.blockSizeVertical * 20,
-                          child: Stack(
-                            children: [
-                              Positioned(
-                                top: SizeConfig.blockSizeVertical -100,
-                                left: SizeConfig.blockSizeHorizontal -104,
-                                child: GestureDetector(
-                                  onTap: () => chooseAnswer(5),
-                                  child: Container(
-                                    // width: SizeConfig.blockSizeHorizontal * 90,
-                                    // height: SizeConfig.blockSizeVertical * 90,
-                                    child: Image.network(urls[k]),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.all(5),
-                          width: SizeConfig.blockSizeHorizontal * 30,
-                          height: SizeConfig.blockSizeVertical * 20,
-                          child: Stack(
-                            children: [
-                              Positioned(
-                                top: SizeConfig.blockSizeVertical -100,
-                                left: SizeConfig.blockSizeHorizontal -215,
-                                child: GestureDetector(
-                                  onTap: () => chooseAnswer(6),
-                                  child: Container(
-                                    // width: SizeConfig.blockSizeHorizontal * 90,
-                                    // height: SizeConfig.blockSizeVertical * 90,
-                                    child: Image.network(urls[k]),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    )),
-                Expanded(
-                    flex: 0,
-                    child: Container(
-                        padding: EdgeInsets.only(left: 20, right: 20),
-                        decoration: BoxDecoration(
-                          color: Colors.lightBlue,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            k>0? IconButton(
-                                icon: Icon(Icons.chevron_left),
-                                color: Colors.white,
-                                iconSize: 40,
-                                onPressed: () {
-                                  setState(() {
-                                      k--;
-                                      urls[k];
-                                  });
-                                }
-                              ):Container(),
-                            k<urls.length - 1 ? IconButton(
-                                icon: Icon(Icons.chevron_right),
-                                color: Colors.white,
-                                iconSize: 40,
-                                onPressed: () {
-                                  setState(() {
-                                    k++;
-                                    urls[k];
-                                  });
-                                }
-                              ):FlatButton(
-                              textColor: Colors.lightBlue,
-                              child: Text("Submit",
-                                style: TextStyle(
-                                  fontSize: 20,
-                                ),
-                              ),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30),
-                              ),
-                              color: Colors.white,
-                              onPressed: () {
-                                setState(() {
-                                  submit();
-                                  disableAnswer = false;
-                                });
-                              },
-                            ),
-                          ],
-                        ))),
-              ],
-            ),
+                        color: Colors.white,
+                        onPressed: () {
+                          setState(() {
+                            submit();
+                            disableAnswer = false;
+
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),
