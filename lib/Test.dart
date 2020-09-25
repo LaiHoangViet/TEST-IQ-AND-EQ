@@ -51,27 +51,10 @@ class _TestState extends State<Test> {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     getToken = sharedPreferences.getString("token");
     userId = sharedPreferences.getInt("userId");
-    // topic1 = sharedPreferences.getInt("level1");
-    // topic2 = sharedPreferences.getInt("level2");
-    // topic3 = sharedPreferences.getInt("level3");
-    // topic4 = sharedPreferences.getInt("level4");
-    //Lấy topic bằng ket từ bên ListTopic
     topicId = topicTest[0]["id"];
-
-    //Đổi link topic test thành link với link cate cho truoc và thêm 1 biến mới.
-    //Lấy giá trị biến mới theo if else tab
     resTopic = await http.get(api.topicTest(topicId, userId, getToken));
     test1 = jsonDecode(resTopic.body)["data"];
     countQues = test1.length;
-    // resTopic2 = await http.get(api.topicTest(topic2, userId, getToken));
-    // test2 = jsonDecode(resTopic2.body)["data"];
-    //
-    // resTopic3 = await http.get(api.topicTest(topic3, userId, getToken));
-    // test3 = jsonDecode(resTopic3.body)["data"];
-    //
-    // resTopic4 = await http.get(api.topicTest(topic4, userId, getToken));
-    // test4 = jsonDecode(resTopic4.body)["data"];
-    // print(topicId);
     setState(() {
       tList = List.generate(test1.length, (i) => List(1), growable: false);
       tIndex = List.generate(test1.length, (i) => List(1), growable: false);
@@ -88,7 +71,7 @@ class _TestState extends State<Test> {
     return Future.value(true); // return true if the route to be popped
   }
 
-  int _counter = 30;
+  int _counter;
   Timer _timer;
 
   void _startTimer() {
@@ -100,7 +83,7 @@ class _TestState extends State<Test> {
       if(_counter > 0){
         setState(() {
           _counter--;
-          countTime = 10 - _counter;
+          countTime = 30 - _counter;
         });
       }else{
         _timer.cancel();
