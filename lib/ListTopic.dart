@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:demo1/Home.dart';
+import 'package:demo1/memGame.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -46,6 +47,11 @@ class _ListopicState extends State<Listopic> {
     reducer,
     initialState: AppState.init(),
   );
+  final storeMemGame = Store<MemAppState>(
+    reduce,
+    initialState: MemAppState.init(),
+  );
+
 
   getToken() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
@@ -497,7 +503,12 @@ class _ListopicState extends State<Listopic> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => new Test(topicTest: 0,)),
+                                builder: (context) => StoreProvider<MemAppState>(
+                                  store: storeMemGame,
+                                  child: MaterialApp(
+                                    home: MemGame(storeMemGame),
+                                  ),
+                                ),),
                             ),
                           },
                           color: Colors.blue,
@@ -577,7 +588,7 @@ class _ListopicState extends State<Listopic> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Text(
-                          'Mem',
+                          'Eye',
                           textScaleFactor: 2,
                         ),
                       ],
@@ -588,7 +599,7 @@ class _ListopicState extends State<Listopic> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Text(
-                          'Eye',
+                          'Mem',
                           textScaleFactor: 2,
                         ),
                       ],

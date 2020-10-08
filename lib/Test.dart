@@ -20,7 +20,6 @@ class Test extends StatefulWidget {
 
 class _TestState extends State<Test> {
   API api = new API();
-
   var topicTest;
 
   _TestState(this.topicTest);
@@ -63,16 +62,13 @@ class _TestState extends State<Test> {
   }
 
   Future<bool> _onWillPop() async {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => Listopic()),
-
-    );
+    Navigator.of(context).pop(_timer.cancel());
     return Future.value(true); // return true if the route to be popped
   }
 
   int _counter;
   Timer _timer;
+
 
   void _startTimer() {
     _counter = 10;
@@ -83,7 +79,7 @@ class _TestState extends State<Test> {
       if(_counter > 0){
         setState(() {
           _counter--;
-          countTime = 30 - _counter;
+          countTime = 10 - _counter;
         });
       }else{
         _timer.cancel();
@@ -122,7 +118,6 @@ class _TestState extends State<Test> {
       }
       tList[k][0] = test1[k]["answer"][index]["answer"];
       tIndex[k][0] = index;
-      // print(tIndex);
       btncolor[index] = btnToShow;
       disableAnswer = true;
     });
@@ -170,7 +165,8 @@ class _TestState extends State<Test> {
   
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
+    return
+      WillPopScope(
       onWillPop: () => _onWillPop(),
       child: MaterialApp(
         title: '',

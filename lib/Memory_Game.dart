@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
@@ -28,33 +29,42 @@ class Game extends StatelessWidget {
 
   Game(this.store);
 
+  bool restart = false;
+
   _grade(int score) => [10, 20, 30, 35, 40, 45, 99]
       .where((i) => i > score)
       .reduce(min)
       .toString();
 
+  //Tạo bảng mới
   _createBoard(double size, List<List<int>> blocks, int depth, int click,
-          MaterialColor color) =>
-      Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: blocks
-              .map((cols) => Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: cols
-                      .map((item) => Flexible(
-                            child: GestureDetector(
-                                onTap: () {
-                                  if (item == 1) store.dispatch(Action.next);
-                                  // if (store.state.clickCnt == 2)
-                                  //   store.dispatch(Action.next);
-                                },
-                                child: Container(
-                                    width: size,
-                                    height: size,
-                                    color: item > 0 ? color[depth] : color)),
-                          ))
-                      .toList()))
-              .toList());
+      MaterialColor color) {
+    if (store.state.rsCnt) store.dispatch(Action.countFalse);
+    return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: blocks
+            .map((cols) => Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: cols
+                    .map((item) => Flexible(
+                          child: GestureDetector(
+                              onTap: () {
+                                if (item == 1) {
+                                  store.dispatch(Action.countTrue);
+                                  store.dispatch(Action.next);
+                                  store.dispatch(Action.shake);
+                                }
+                                // if (store.state.clickCnt == 2)
+                                //   store.dispatch(Action.next);
+                              },
+                              child: Container(
+                                  width: size,
+                                  height: size,
+                                  color: item > 0 ? color[depth] : color)),
+                        ))
+                    .toList()))
+            .toList());
+  }
 
   @override
   Widget build(BuildContext context) => StoreConnector<AppState, AppState>(
@@ -64,15 +74,16 @@ class Game extends StatelessWidget {
       builder: (context, state) {
         var w = MediaQuery.of(context).size.height / 16 * 7,
             size = w / (state.board.length + 1),
-            depth = [1 + state.score ~/ 5, 4].reduce(min) * 100,
+            depth = [(1 + state.score ~/ 4) * 100, 400].reduce(min),
             click = 0,
             colors = [
-          Colors.blue,
-          Colors.orange,
-          Colors.pink,
-          Colors.purple,
-          Colors.cyan
-        ];
+              Colors.yellow,
+              Colors.blue,
+              Colors.orange,
+              Colors.pink,
+              Colors.purple,
+              Colors.cyan
+            ];
 
         return Scaffold(
             appBar: AppBar(
@@ -83,7 +94,7 @@ class Game extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => Listopic()),
                 ),
               ),
-              title: Text('Memory Game'),
+              title: Text('Eyes Game'),
               centerTitle: true,
             ),
             backgroundColor: Color(0xFFBCE1F6),
@@ -106,7 +117,7 @@ class Game extends StatelessWidget {
                                     children: <Widget>[
                                       Container(
                                         child: Text(
-                                          'Sroce',
+                                          'Score',
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                             color: Colors.black,
@@ -127,22 +138,23 @@ class Game extends StatelessWidget {
                                         ? Timer(
                                             onEnd: () =>
                                                 store.dispatch(Action.end),
-                                            width: w)
-                                        : setText('End', w * 0.08, Colors.red)),
-                              state.page<1
-                                  ?Container(
-                                    width: w,
-                                    height: w * 1.05,
-                                    padding: pad(0, w * 0.05),
-                                    child: _createBoard(
-                                        size,
-                                        state.board,
-                                        depth,
-                                        click,
-                                        colors[state.count % colors.length]))
-                                  :
-                                  Container(),
-
+                                            width: w,
+                                            rsCnt: state.rsCnt)
+                                        : setText(
+                                            'End', w * 0.08, Colors.red[500])),
+                                state.page < 1
+                                    ? Container(
+                                        width: w,
+                                        height: w * 1.05,
+                                        padding: pad(0, w * 0.05),
+                                        child: _createBoard(
+                                            size,
+                                            state.board,
+                                            depth,
+                                            click,
+                                            colors[
+                                                state.count % colors.length]))
+                                    : Container(),
                                 // : Container(
                                 //     width: w,
                                 //     height: w,
@@ -159,7 +171,9 @@ class Game extends StatelessWidget {
                     child: FloatingActionButton(
                       child: Icon(
                           state.page < 1 ? Icons.play_arrow : Icons.refresh),
-                      onPressed: () => store.dispatch(Action.start),
+                      onPressed: () {
+                        store.dispatch(Action.start);
+                      },
                     ),
                   )
                 : Container());
@@ -167,10 +181,12 @@ class Game extends StatelessWidget {
 }
 
 class Timer extends StatefulWidget {
-  Timer({this.onEnd, this.width});
+  Timer({this.onEnd, this.width, this.controller, this.rsCnt});
 
   final VoidCallback onEnd;
   final double width;
+  final AnimationController controller;
+  final bool rsCnt;
 
   @override
   _TimerState createState() => _TimerState();
@@ -178,125 +194,150 @@ class Timer extends StatefulWidget {
 
 class _TimerState extends State<Timer> with TickerProviderStateMixin {
   Animation _animate;
-  int _sec = 10;
+  int _sec = 15;
+  AnimationController controller;
 
   @override
   void initState() {
     super.initState();
-    _animate = StepTween(begin: _sec, end: 0).animate(
-        AnimationController(duration: Duration(seconds: _sec), vsync: this)
-          ..forward(from: 0.0))
-      ..addStatusListener((AnimationStatus s) {
-        if (s == AnimationStatus.completed) widget.onEnd();
-      });
+    controller =
+        new AnimationController(duration: Duration(seconds: _sec), vsync: this);
+    _animate =
+        StepTween(begin: _sec, end: 0).animate(controller..forward(from: 0.0))
+          ..addStatusListener((AnimationStatus s) {
+            if (s == AnimationStatus.completed) widget.onEnd();
+          })
+          ..addListener(() {});
   }
 
   @override
   Widget build(BuildContext context) => AnimatedBuilder(
       animation: _animate,
-      builder: (BuildContext context, Widget child) => setText(
-          _animate.value.toString().padLeft(2, '0'),
-          widget.width * 0.12,
-          Colors.green));
+      builder: (BuildContext context, Widget child) {
+        if (widget.rsCnt) controller.forward(from: 0.0);
+        return setText(_animate.value.toString().padLeft(2, '0'),
+            widget.width * 0.12, Colors.green);
+      });
 }
 
-//REDUX
 @immutable
 class AppState {
-  final int score, page, count
-
-      // clickCnt
-      ;
-
+  final int score, page, count;
   final List<List<int>> board;
+  bool rsCnt;
 
-  AppState({
-    this.score,
-    this.page,
-    this.board,
-    this.count,
-    // this.clickCnt
-  });
+  AppState({this.score, this.page, this.board, this.count, this.rsCnt});
 
   AppState.init()
       : score = 0,
         page = -1,
         count = 0,
-        // clickCnt = 0,
-        board = newBoard(0);
+        board = newBoard(0),
+        rsCnt = false;
 }
 
-enum Action { next, end, start, shake, click }
+enum Action { next, end, start, shake, countFalse, countTrue }
 
 AppState reducer(AppState s, act) {
   switch (act) {
-    case Action.click:
-      return AppState(
-        score: s.score,
-        page: s.page,
-        count: s.count,
-        board: s.board,
-        // clickCnt: s.clickCnt + 1,
-      );
     case Action.next:
       return AppState(
           score: s.score + 1,
           page: s.page,
-          // clickCnt: 0,
           count: s.count,
-          board: newBoard(s.score + 1));
+          board: newBoard(s.score + 1),
+          rsCnt: s.rsCnt);
+
     case Action.end:
       return AppState(
-        score: s.score,
-        page: 1,
-        count: s.count + 1,
-        board: s.board,
-        //  clickCnt: 0
-      );
+          score: s.score,
+          page: 1,
+          count: s.count + 1,
+          board: s.board,
+          rsCnt: s.rsCnt);
     case Action.start:
       return AppState(
-        score: 0, page: 0, count: s.count, board: newBoard(0),
-        // clickCnt: 0
-      );
+          score: 0,
+          page: 0,
+          count: s.count,
+          board: newBoard(0),
+          rsCnt: s.rsCnt);
     case Action.shake:
       return AppState(
-        score: s.score,
-        page: s.page,
-        count: s.count + 1,
-        board: s.board,
-        // clickCnt: 0
-      );
+          score: s.score,
+          page: s.page,
+          count: s.count + 1,
+          board: s.board,
+          rsCnt: s.rsCnt);
+    case Action.countFalse:
+      return AppState(
+          score: s.score,
+          page: s.page,
+          count: s.count,
+          board: s.board,
+          rsCnt: false);
+    case Action.countTrue:
+      return AppState(
+          score: s.score,
+          page: s.page,
+          count: s.count,
+          board: s.board,
+          rsCnt: true);
     default:
       return s;
   }
 }
 
-List<List<int>> newBoard(score) {
-  var size = score < 7 ? score + 3 : 10,
-      rng = Random(),
-      bingoRow = rng.nextInt(size),
-      bingoCol = rng.nextInt(size);
-  // bingoRow1 = rng.nextInt(size),
-  // bingoCol1 = rng.nextInt(size);
-  List<List<int>> board = [];
-  // while (bingoRow == bingoRow1 && bingoCol == bingoCol1) {
-  //   bingoRow1 = rng.nextInt(size);
-  //   bingoCol1 = rng.nextInt(size);
-  // }
-  for (var i = 0; i < size; i++) {
-    List<int> row = [];
-    for (var j = 0; j < size; j++) {
-      if ((i == bingoRow && j == bingoCol)
-          // || (i == bingoRow1 && j == bingoCol1)
-          ) {
-        row.add(1);
-      } else {
-        row.add(0);
-      }
-      // (i == bingoRow1 && j == bingoCol1 ? 1 : 0);
-    }
-    board.add(row);
-  }
+// Tao bang moi
 
-  return board;
+List<List<int>> newBoard(score) {
+  for (int k = 2; k < 10; k++) {
+    var size;
+    // bingoRow1 = rng.nextInt(size),
+    // bingoCol1 = rng.nextInt(size);
+
+    List<List<int>> board = [];
+    // while (bingoRow == bingoRow1 && bingoCol == bingoCol1) {
+    //   bingoRow1 = rng.nextInt(size);
+    //   bingoCol1 = rng.nextInt(size);
+    // }
+
+    // Xét màu
+
+    if (score < 1) {
+      size = 2;
+    } else if (score < 4) {
+      size = 3;
+    } else if (score < 8) {
+      size = 4;
+    } else if (score < 13) {
+      size = 5;
+    } else if (score < 22) {
+      size = 6;
+    } else if (score < 32) {
+      size = 7;
+    } else if (score >= 32) {
+      size = 8;
+    }
+    int count = size;
+    var rng = Random(),
+        bingoRow = rng.nextInt(size),
+        bingoCol = rng.nextInt(size);
+    for (var i = 0; i < size; i++) {
+      List<int> row = [];
+      for (var j = 0; j < size; j++) {
+        if ((i == bingoRow && j == bingoCol)) {
+          row.add(1);
+        } else {
+          row.add(0);
+        }
+        // (i == bingoRow1 && j == bingoCol1 ? 1 : 0);
+      }
+      board.add(row);
+
+      // print(board);
+
+    }
+    return board;
+  }
 }

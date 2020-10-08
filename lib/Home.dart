@@ -1,10 +1,13 @@
 import 'dart:convert';
+import 'dart:io';
 
+import 'package:demo1/ImageTest.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'ListTopic.dart';
 import 'Rank.dart';
 import 'SizeConfig.dart';
+import 'Test.dart';
 import 'links.dart';
 import 'package:http/http.dart' as http;
 
@@ -49,6 +52,10 @@ class _HomeState extends State<Home> {
     'Rank',
   ];
 
+  void logout(){
+
+  }
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -60,6 +67,42 @@ class _HomeState extends State<Home> {
             style: TextStyle(
               fontSize: 24,
             ),
+          ),
+        ),
+        drawer: new Drawer(
+          child: new ListView(
+            children: <Widget>[
+              new UserAccountsDrawerHeader(
+                accountEmail: new Text("hoang99tm@gmail.com", style: TextStyle(color: Colors.black),),
+                accountName: new Text("Manh Hoang", style: TextStyle(color: Colors.black),),
+                currentAccountPicture: new GestureDetector(
+                  child: new CircleAvatar(
+                    backgroundImage: new AssetImage("images/anh1.jpg"),
+                  ),
+                  onTap: () => print("This is your current account."),
+                ),
+                decoration: new BoxDecoration(),
+              ),
+              new Container(
+                child: Padding(
+                  padding: EdgeInsets.only(right: 10, left: 10),
+                  child: FlatButton(
+                    onPressed: ()=>exit(0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Logout",
+                          style: TextStyle(color: Colors.black54, fontSize: 16),
+                        ),
+                        IconButton(
+                          icon: new Icon(Icons.exit_to_app),
+                        )
+                      ],
+                    ),
+                  ),
+                )
+              ),
+            ],
           ),
         ),
         body: ListView.builder(
